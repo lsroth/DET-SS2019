@@ -205,19 +205,24 @@ public class Block
 		}
 
 		// TODO: grass bottom = sand??
-		else if(blockType == BlockType.GRASS && side == Cubeside.BOTTOM)
-		{
-			uv00 = blockUVs[(int)(BlockType.SAND+2),0];
-			uv10 = blockUVs[(int)(BlockType.SAND+2),1];
-			uv01 = blockUVs[(int)(BlockType.SAND+2),2];
-			uv11 = blockUVs[(int)(BlockType.SAND+2),3];
-		}
-		else if (blockType == BlockType.CACTUS && side == Cubeside.TOP)
-		{
-			uv00 = blockUVs[2,0];
-			uv10 = blockUVs[2,1];
-			uv01 = blockUVs[2,2];
-			uv11 = blockUVs[2,3];
+		// else if(blockType == BlockType.GRASS && side == Cubeside.BOTTOM)
+		// {
+		// 	uv00 = blockUVs[(int)(BlockType.DIRT+2),0];
+		// 	uv10 = blockUVs[(int)(BlockType.DIRT+2),1];
+		// 	uv01 = blockUVs[(int)(BlockType.DIRT+2),2];
+		// 	uv11 = blockUVs[(int)(BlockType.DIRT+2),3];
+		// }
+		else if (blockType == BlockType.CACTUS && side == Cubeside.TOP) {
+			uv00 = blockUVs[(int)(blockType+1),0];
+			uv10 = blockUVs[(int)(blockType+1),1];
+			uv01 = blockUVs[(int)(blockType+1),2];
+			uv11 = blockUVs[(int)(blockType+1),3];
+		} 
+		else {
+			uv00 = blockUVs[(int)(blockType+2),0];
+			uv10 = blockUVs[(int)(blockType+2),1];
+			uv01 = blockUVs[(int)(blockType+2),2];
+			uv11 = blockUVs[(int)(blockType+2),3];
 		}
 
 		// Set cracks
