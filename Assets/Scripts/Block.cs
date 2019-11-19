@@ -19,53 +19,53 @@ public class Block
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, 4, 4, 2, 3, -1, 4, 4, 0, 0, 0, 0, 0, 0};
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0};
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
 		// TODO: change grass textures -> no dirt
 
-		/*GRASS TOP*/		{new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
+		/*0 GRASS TOP*/		{new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
 								new Vector2( 0.125f, 0.4375f ),new Vector2( 0.1875f, 0.4375f )},
-		/*GRASS SIDE*/		{new Vector2( 0.1875f, 0.9375f ), new Vector2( 0.25f, 0.9375f),
+		/*1 GRASS SIDE*/	{new Vector2( 0.1875f, 0.9375f ), new Vector2( 0.25f, 0.9375f),
 								new Vector2( 0.1875f, 1.0f ),new Vector2( 0.25f, 1.0f )},
-		/*CACTUS TOP */		{ new Vector2(0.3125f, 0.6875f), new Vector2(0.375f,0.6875f), 
+		/*2 CACTUS TOP */	{ new Vector2(0.3125f, 0.6875f), new Vector2(0.375f,0.6875f), 
 								new Vector2(0.3125f,0.75f), new Vector2(0.375f,0.75f)},
-		/*CACTUS SIDE*/		{ new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f), 
+		/*3 CACTUS SIDE*/	{ new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f), 
 								new Vector2(0.375f,0.75f), new Vector2(0.4375f,0.75f)},
+		/*4 WATER*/			{ new Vector2(0.875f,0.125f),  new Vector2(0.9375f,0.125f),
+ 								new Vector2(0.875f,0.1875f), new Vector2(0.9375f,0.1875f)},
+		/*5 STONE*/			{new Vector2( 0, 0.875f ), new Vector2( 0.0625f, 0.875f),
+								new Vector2( 0, 0.9375f ),new Vector2( 0.0625f, 0.9375f )},  
+		/*6 SAND*/			{ new Vector2(0.125f,0.875f),  new Vector2(0.1875f,0.875f),
+ 								new Vector2(0.125f,0.9375f), new Vector2(0.1875f,0.9375f)},
+		/*7 BEDROCK*/		{new Vector2( 0.3125f, 0.8125f ), new Vector2( 0.375f, 0.8125f),
+								new Vector2( 0.3125f, 0.875f ),new Vector2( 0.375f, 0.875f )},
+		/*8 NOCRACK*/		{new Vector2( 0.6875f, 0f ), new Vector2( 0.75f, 0f),
+								new Vector2( 0.6875f, 0.0625f ),new Vector2( 0.75f, 0.0625f )},
+		/*9 CRACK1*/		{ new Vector2(0f,0f),  new Vector2(0.0625f,0f),
+ 								new Vector2(0f,0.0625f), new Vector2(0.0625f,0.0625f)},
+ 		/*10 CRACK2*/		{ new Vector2(0.0625f,0f),  new Vector2(0.125f,0f),
+ 								new Vector2(0.0625f,0.0625f), new Vector2(0.125f,0.0625f)},
+ 		/*11 CRACK3*/		{ new Vector2(0.125f,0f),  new Vector2(0.1875f,0f),
+ 								new Vector2(0.125f,0.0625f), new Vector2(0.1875f,0.0625f)},
+ 		/*12 CRACK4*/		{ new Vector2(0.1875f,0f),  new Vector2(0.25f,0f),
+ 								new Vector2(0.1875f,0.0625f), new Vector2(0.25f,0.0625f)}
 		// /*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
 		// 						new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
-		/*WATER*/			{ new Vector2(0.875f,0.125f),  new Vector2(0.9375f,0.125f),
- 								new Vector2(0.875f,0.1875f), new Vector2(0.9375f,0.1875f)},
-		/*STONE*/			{new Vector2( 0, 0.875f ), new Vector2( 0.0625f, 0.875f),
-								new Vector2( 0, 0.9375f ),new Vector2( 0.0625f, 0.9375f )},
 		// /*LEAVES*/			{ new Vector2(0.0625f,0.375f),  new Vector2(0.125f,0.375f),
  		// 						new Vector2(0.0625f,0.4375f), new Vector2(0.125f,0.4375f)},
  		// /*WOOD*/			{ new Vector2(0.375f,0.625f),  new Vector2(0.4375f,0.625f),
  		// 						new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f)},
  		// /*WOODBASE*/		{ new Vector2(0.375f,0.625f),  new Vector2(0.4375f,0.625f),
- 		// 						new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f)},	    
-		/*SAND*/			{ new Vector2(0.125f,0.875f),  new Vector2(0.1875f,0.875f),
- 								new Vector2(0.125f,0.9375f), new Vector2(0.1875f,0.9375f)},
-		/*BEDROCK*/			{new Vector2( 0.3125f, 0.8125f ), new Vector2( 0.375f, 0.8125f),
-								new Vector2( 0.3125f, 0.875f ),new Vector2( 0.375f, 0.875f )},
+ 		// 						new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f)},	  
  		// /*GOLD*/			{ new Vector2(0f,0.8125f),  new Vector2(0.0625f,0.8125f),
  		// 						new Vector2(0f,0.875f), new Vector2(0.0625f,0.875f)},
 		// /*REDSTONE*/		{new Vector2( 0.1875f, 0.75f ), new Vector2( 0.25f, 0.75f),
 		// 						new Vector2( 0.1875f, 0.8125f ),new Vector2( 0.25f, 0.8125f )},
 		// /*DIAMOND*/			{new Vector2( 0.125f, 0.75f ), new Vector2( 0.1875f, 0.75f),
 		// 						new Vector2( 0.125f, 0.8125f ),new Vector2( 0.1875f, 0.8125f )},
-		/*NOCRACK*/			{new Vector2( 0.6875f, 0f ), new Vector2( 0.75f, 0f),
-								new Vector2( 0.6875f, 0.0625f ),new Vector2( 0.75f, 0.0625f )},
-		/*CRACK1*/			{ new Vector2(0f,0f),  new Vector2(0.0625f,0f),
- 								new Vector2(0f,0.0625f), new Vector2(0.0625f,0.0625f)},
- 		/*CRACK2*/			{ new Vector2(0.0625f,0f),  new Vector2(0.125f,0f),
- 								new Vector2(0.0625f,0.0625f), new Vector2(0.125f,0.0625f)},
- 		/*CRACK3*/			{ new Vector2(0.125f,0f),  new Vector2(0.1875f,0f),
- 								new Vector2(0.125f,0.0625f), new Vector2(0.1875f,0.0625f)},
- 		/*CRACK4*/			{ new Vector2(0.1875f,0f),  new Vector2(0.25f,0f),
- 								new Vector2(0.1875f,0.0625f), new Vector2(0.25f,0.0625f)}
-						}; 
+	}; 
 
     /// <summary>
     /// Constructs a block.
@@ -203,7 +203,13 @@ public class Block
 			uv01 = blockUVs[0,2];
 			uv11 = blockUVs[0,3];
 		}
-
+		else if(blockType == BlockType.GRASS)
+		{
+			uv00 = blockUVs[1,0];
+			uv10 = blockUVs[1,1];
+			uv01 = blockUVs[1,2];
+			uv11 = blockUVs[1,3];
+		}
 		// TODO: grass bottom = sand??
 		// else if(blockType == BlockType.GRASS && side == Cubeside.BOTTOM)
 		// {
@@ -213,10 +219,10 @@ public class Block
 		// 	uv11 = blockUVs[(int)(BlockType.DIRT+2),3];
 		// }
 		else if (blockType == BlockType.CACTUS && side == Cubeside.TOP) {
-			uv00 = blockUVs[(int)(blockType+1),0];
-			uv10 = blockUVs[(int)(blockType+1),1];
-			uv01 = blockUVs[(int)(blockType+1),2];
-			uv11 = blockUVs[(int)(blockType+1),3];
+			uv00 = blockUVs[2,0];
+			uv10 = blockUVs[2,1];
+			uv01 = blockUVs[2,2];
+			uv11 = blockUVs[2,3];
 		} 
 		else {
 			uv00 = blockUVs[(int)(blockType+2),0];
@@ -226,10 +232,10 @@ public class Block
 		}
 
 		// Set cracks
-		suvs.Add(blockUVs[(int)(health+1),3]);
-		suvs.Add(blockUVs[(int)(health+1),2]);
-		suvs.Add(blockUVs[(int)(health+1),0]);
-		suvs.Add(blockUVs[(int)(health+1),1]);
+		suvs.Add(blockUVs[(int)(health+2),3]);
+		suvs.Add(blockUVs[(int)(health+2),2]);
+		suvs.Add(blockUVs[(int)(health+2),0]);
+		suvs.Add(blockUVs[(int)(health+2),1]);
 
 		//{uv11, uv01, uv00, uv10};
 
