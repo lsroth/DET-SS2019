@@ -77,6 +77,7 @@ public class Chunk
 	private bool Load()
 	{
 		string chunkFile = BuildChunkFileName(chunk.transform.position);
+			Debug.Log(chunkFile);
 		if(File.Exists(chunkFile))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
@@ -84,8 +85,10 @@ public class Chunk
 			bd = new BlockData();
 			bd = (BlockData) bf.Deserialize(file);
 			file.Close();
+			Debug.Log(chunkFile);
 			return true;
 		}
+		Debug.Log(chunkFile);
 		return false;
 	}
 
