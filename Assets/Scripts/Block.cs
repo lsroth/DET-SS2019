@@ -120,23 +120,23 @@ public class Block
 	public bool BuildBlock(BlockType b)
 	{
         // If water or sand got placed, activate the drop and flow coroutines respectively.
-		if(b == BlockType.WATER)
-		{
-			owner.mb.StartCoroutine(owner.mb.Flow(this, 
-										BlockType.WATER, 
-										blockHealthMax[(int)BlockType.WATER],15));
-		}
-		else if(b == BlockType.SAND)
-		{
-			owner.mb.StartCoroutine(owner.mb.Drop(this, 
-										BlockType.SAND, 
-										20));
-		}
-		else
-		{
+		//if(b == BlockType.WATER)
+		//{
+		//	owner.mb.StartCoroutine(owner.mb.Flow(this, 
+		//								BlockType.WATER, 
+		//								blockHealthMax[(int)BlockType.WATER],15));
+		//}
+		//else if(b == BlockType.SAND)
+		//{
+		//	owner.mb.StartCoroutine(owner.mb.Drop(this, 
+		//								BlockType.SAND, 
+		//								20));
+		//}
+		//else
+		//{
 			SetType(b);
 			owner.Redraw();
-		}
+		//}
 		return true;
 	}
 
@@ -161,7 +161,7 @@ public class Block
 			isSolid = false;
 			health = BlockType.NOCRACK;
 			owner.Redraw();
-			owner.UpdateChunk();
+			//owner.UpdateChunk();
 			return true;
 		}
 
