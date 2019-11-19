@@ -12,17 +12,24 @@ public class Utils
 	static readonly int octaves = 4;
 	static readonly float persistence = 0.5f;
 
-	public static int GenerateStoneHeight(float x, float z)
-	{
-		float height = Map(0, maxHeight - 5, 0, 1, fBM(x * smooth * 2, z * smooth * 2, octaves + 1, persistence));
-		return (int) height;
-	}
+    // TODO: stones / cheese under sand ?
 
+	// public static int GenerateStoneHeight(float x, float z)
+	// {
+	// 	float height = Map(0, maxHeight - 5, 0, 1, fBM(x * smooth * 2, z * smooth * 2, octaves + 1, persistence));
+	// 	return (int) height;
+	// }
+
+
+    //TODO: find function for more flat mountains
+    // try code from tutorial for that
 	public static int GenerateHeight(float x, float z)
 	{
 		float height = Map(0, maxHeight, 0, 1, fBM(x * smooth, z * smooth, octaves, persistence));
 		return (int) height;
 	}
+
+    // TODO: watch tutorial again -> for cactus?
 
     /// <summary>
     /// 3D Fractional Brownian Motion
@@ -46,6 +53,8 @@ public class Utils
         return (XY + YZ + XZ + YX + ZY + ZX)/6.0f;
     }
 
+    // TODO: can maybe be used to create different landscapes -> via input??
+
     /// <summary>
     /// Maps the output of the noise to a different range of values.
     /// </summary>
@@ -60,8 +69,10 @@ public class Utils
         return Mathf.Lerp (newMin, newMax, Mathf.InverseLerp (originMin, originMax, value));
     }
 
+    
+    // TODO: watch tutorial again -> for cactus?
+
     /// <summary>
-    /// 2D Fractional Brownian Motion based on Perline Noise.
     /// 2D Fractional Brownian Motion based on Perline Noise.
     /// </summary>
     /// <param name="x">x postion</param>
