@@ -30,6 +30,8 @@ public class BlockInteraction : MonoBehaviour
 			buildtype = Block.BlockType.SAND;
 		if (Input.GetKeyDown("5"))
 			buildtype = Block.BlockType.GRASS;
+		if (Input.GetKeyDown("6"))
+			buildtype = Block.BlockType.PUMPKIN;
 
         // If left or right mouse button
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))

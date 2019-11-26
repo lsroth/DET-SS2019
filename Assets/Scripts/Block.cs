@@ -9,26 +9,28 @@ public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
 	public enum BlockType {GRASS, CACTUS, WATER, STONE, SAND, BEDROCK, NOCRACK,
-							CRACK1, CRACK2, CRACK3, CRACK4, AIR};
+							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN};
 
 	public BlockType blockType;
 	public bool isSolid;
+
+	public bool isWater = false;
 	public Chunk owner;
 	GameObject parent;
 	public Vector3 position;
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0};
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3 };
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
 		// TODO: change grass textures -> no dirt
 
-		/*0 GRASS TOP*/		{new Vector2( 0.125f, 0.375f ), new Vector2( 0.1875f, 0.375f),
-								new Vector2( 0.125f, 0.4375f ),new Vector2( 0.1875f, 0.4375f )},
-		/*1 GRASS SIDE*/	{new Vector2( 0.1875f, 0.9375f ), new Vector2( 0.25f, 0.9375f),
-								new Vector2( 0.1875f, 1.0f ),new Vector2( 0.25f, 1.0f )},
+		/*0 GRASS TOP*/		{new Vector2( 0.0625f, 0.375f ), new Vector2( 0.125f, 0.375f),
+								new Vector2( 0.0625f, 0.4375f ),new Vector2( 0.125f, 0.4375f )},
+		/*1 GRASS SIDE*/	{new Vector2( 0.0625f, 0.375f ), new Vector2( 0.125f, 0.375f),
+								new Vector2( 0.0625f, 0.4375f ),new Vector2( 0.125f, 0.4375f )},
 		/*2 CACTUS TOP */	{ new Vector2(0.3125f, 0.6875f), new Vector2(0.375f,0.6875f), 
 								new Vector2(0.3125f,0.75f), new Vector2(0.375f,0.75f)},
 		/*3 CACTUS SIDE*/	{ new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f), 
@@ -50,7 +52,14 @@ public class Block
  		/*11 CRACK3*/		{ new Vector2(0.125f,0f),  new Vector2(0.1875f,0f),
  								new Vector2(0.125f,0.0625f), new Vector2(0.1875f,0.0625f)},
  		/*12 CRACK4*/		{ new Vector2(0.1875f,0f),  new Vector2(0.25f,0f),
- 								new Vector2(0.1875f,0.0625f), new Vector2(0.25f,0.0625f)}
+ 								new Vector2(0.1875f,0.0625f), new Vector2(0.25f,0.0625f)},
+		/*14 PUMPKIN SIDE FACE */ { new Vector2(0.4375f,0.5f),  new Vector2(0.5f,0.5f),
+ 								new Vector2(0.4375f,0.5625f), new Vector2(0.5f,0.5625f)},
+		/*13 PUMPKIN SIDE */ { new Vector2(0.375f,0.5f),  new Vector2(0.4375f,0.5f),
+ 								new Vector2(0.375f,0.5625f), new Vector2(0.4375f,0.5625f)},
+		/*15 PUMPKIN TOP */ { new Vector2(0.375f,0.5625f),  new Vector2(0.4375f,0.5625f),
+ 								new Vector2(0.375f,0.625f), new Vector2(0.4375f,0.625f)},
+		
 		// /*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
 		// 						new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
 		// /*LEAVES*/			{ new Vector2(0.0625f,0.375f),  new Vector2(0.125f,0.375f),
@@ -89,20 +98,26 @@ public class Block
     /// </summary>
     /// <param name="b">BlockType to be set</param>
 	public void SetType(BlockType b)
-	{
+	{	
 		blockType = b;
-		if(blockType == BlockType.AIR || blockType == BlockType.WATER)
-			isSolid = false;
-		else
-			isSolid = true;
-
 		if(blockType == BlockType.WATER)
 		{
+			isWater = true;
 			parent = owner.fluid.gameObject;
 		}
 		else
 			parent = owner.chunk.gameObject;
 
+		if(blockType == BlockType.AIR || blockType == BlockType.WATER)
+			isSolid = false;
+		else
+			isSolid = true;
+		
+		if(blockType == BlockType.SAND){
+			if(hasAnyWaterNeighbour()){
+				blockType = BlockType.GRASS;
+			}
+		}
 		health = BlockType.NOCRACK;
 		currentHealth = blockHealthMax[(int)blockType];
 	}
@@ -155,7 +170,7 @@ public class Block
 		if(currentHealth == -1) return false;
 		currentHealth--;
 		health++;
-
+		printNeighbours();
 		if(currentHealth == (blockHealthMax[(int)blockType]-1))
 		{
 			owner.mb.StartCoroutine(owner.mb.HealBlock(position));
@@ -175,6 +190,13 @@ public class Block
 		return false;
 	}
 
+
+	private void printNeighbours(){
+		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
+		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
+		Debug.Log(GetBlockType((int)position.x - 1,(int)position.y,(int)position.z)); 
+		Debug.Log(GetBlockType((int)position.x + 1,(int)position.y,(int)position.z));
+	}
     /// <summary>
     /// Assembles one side of a cube's mesh by selecting the UVs, defining the vertices and calculating the normals.
     /// </summary>
@@ -223,7 +245,17 @@ public class Block
 			uv10 = blockUVs[2,1];
 			uv01 = blockUVs[2,2];
 			uv11 = blockUVs[2,3];
-		} 
+		} else if (blockType == BlockType.PUMPKIN && side == Cubeside.FRONT) {
+			uv00 = blockUVs[(int)(blockType+1),0];
+			uv10 = blockUVs[(int)(blockType+1),1];
+			uv01 = blockUVs[(int)(blockType+1),2];
+			uv11 = blockUVs[(int)(blockType+1),3];
+		} else if (blockType == BlockType.PUMPKIN && side == Cubeside.TOP) {
+			uv00 = blockUVs[(int)(blockType+3),0];
+			uv10 = blockUVs[(int)(blockType+3),1];
+			uv01 = blockUVs[(int)(blockType+3),2];
+			uv11 = blockUVs[(int)(blockType+3),3];
+		}
 		else {
 			uv00 = blockUVs[(int)(blockType+2),0];
 			uv10 = blockUVs[(int)(blockType+2),1];
@@ -417,6 +449,29 @@ public class Block
 		return false;
 	}
 
+	public bool HasWaterNeighbour(int x, int y, int z){
+		try
+		{
+			Block b = GetBlock(x,y,z);
+			if(b != null)
+				return (b.isWater);
+		}
+		catch(System.IndexOutOfRangeException){}
+
+		return false;
+	}
+
+	public bool hasAnyWaterNeighbour(){
+		if(HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z + 1) 
+			|| HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z - 1) 
+			|| HasWaterNeighbour((int)position.x,(int)position.y + 1,(int)position.z) 
+			|| HasWaterNeighbour((int)position.x,(int)position.y - 1,(int)position.z)
+			|| HasWaterNeighbour((int)position.x - 1,(int)position.y,(int)position.z) 
+			|| HasWaterNeighbour((int)position.x + 1,(int)position.y,(int)position.z)){
+			return true;
+		} 
+		return false;
+	}
     /// <summary>
     /// Determines if a side of a cube is to be drawn as a mesh or not, depending on having a solid neighbour or not. If a block is of type AIR, no quads are being created.
     /// </summary>

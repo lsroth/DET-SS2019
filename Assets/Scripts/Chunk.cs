@@ -77,7 +77,6 @@ public class Chunk
 	private bool Load()
 	{
 		string chunkFile = BuildChunkFileName(chunk.transform.position);
-			Debug.Log(chunkFile);
 		if(File.Exists(chunkFile))
 		{
 			BinaryFormatter bf = new BinaryFormatter();
@@ -85,10 +84,8 @@ public class Chunk
 			bd = new BlockData();
 			bd = (BlockData) bf.Deserialize(file);
 			file.Close();
-			Debug.Log(chunkFile);
 			return true;
 		}
-		Debug.Log(chunkFile);
 		return false;
 	}
 
@@ -197,9 +194,29 @@ public class Chunk
                         chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
                     }
                     // Place water blocks below height 65
-                    else if (worldY < 103.2)
+                    else if (worldY < Utils.startHeightMountains-2.9) {
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
+						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.SAND);
+						};
+						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.SAND);
+						};
+						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.SAND);
+						};
+						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.SAND);
+						};
+						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.SAND);
+						};
+						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
+							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.SAND);
+						};
+
+					}
                     // Place air blocks
                     else
                     {
