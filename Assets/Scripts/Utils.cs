@@ -7,14 +7,15 @@
 /// </summary>
 public class Utils
 {
-    static readonly int maxHeight = 110;
-    static readonly float smooth = 0.05f;
+    static readonly float smooth = 0.07f;
     static readonly int octaves = 3;
     static readonly float persistence = 0.5f;
-    static readonly int maxHeightMountains = 200;
+
+    public static readonly int startHeightMountains = 106;
+    static readonly int maxHeightMountains = 250;
     static readonly float smoothMountains = 0.01f;
-    static readonly int octavesMountains = 1;
-    static readonly float persistenceMountains = 0.5f;
+    static readonly int octavesMountains = 3;
+    static readonly float persistenceMountains = 0.4f;
 
     // TODO: stones / cheese under sand ?
 
@@ -29,13 +30,14 @@ public class Utils
     // try code from tutorial for that
 	public static int GenerateHeight(float x, float z)
 	{
+        float maxHeight = startHeightMountains+4;
 		float height = Map(100, maxHeight, 0, 1, fBM(x * smooth, z * smooth, octaves, persistence));
 		return (int) height;
     }
     public static int GenerateHeightMountains(float x, float z)
     {
-        float height = Map(65, maxHeightMountains, 0, 1, fBM(x * smoothMountains, z * smoothMountains, octavesMountains, persistenceMountains));
-        if(height < 106)
+        float height = Map(0, maxHeightMountains, 0, 1, fBM(x * smoothMountains, z * smoothMountains, octavesMountains, persistenceMountains));
+        if(height < startHeightMountains)
         {
             return GenerateHeight(x, z);
         }
