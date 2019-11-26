@@ -155,7 +155,11 @@ public class Chunk
 						continue;
 					}
 
-					int surfaceHeight = Utils.GenerateHeight(worldX,worldZ);
+                    int surfaceHeight = Utils.GenerateHeightMountains(worldX, worldZ);
+                    //               if(surfaceHeight < 106)
+                    //               {
+                    //                   surfaceHeight = Utils.GenerateHeight(worldX, worldZ);
+                    //               }
 
                     // Place bedrock at height 0
                     if (worldY == 0)
@@ -193,7 +197,7 @@ public class Chunk
                         chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
                     }
                     // Place water blocks below height 65
-                    else if (worldY < 65)
+                    else if (worldY < 103.2)
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
                     // Place air blocks

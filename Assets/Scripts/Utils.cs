@@ -7,10 +7,14 @@
 /// </summary>
 public class Utils
 {
-	static readonly int maxHeight = 150;
-	static readonly float smooth = 0.01f;
-	static readonly int octaves = 4;
-	static readonly float persistence = 0.5f;
+    static readonly int maxHeight = 110;
+    static readonly float smooth = 0.05f;
+    static readonly int octaves = 3;
+    static readonly float persistence = 0.5f;
+    static readonly int maxHeightMountains = 200;
+    static readonly float smoothMountains = 0.01f;
+    static readonly int octavesMountains = 1;
+    static readonly float persistenceMountains = 0.5f;
 
     // TODO: stones / cheese under sand ?
 
@@ -25,9 +29,18 @@ public class Utils
     // try code from tutorial for that
 	public static int GenerateHeight(float x, float z)
 	{
-		float height = Map(0, maxHeight, 0, 1, fBM(x * smooth, z * smooth, octaves, persistence));
+		float height = Map(100, maxHeight, 0, 1, fBM(x * smooth, z * smooth, octaves, persistence));
 		return (int) height;
-	}
+    }
+    public static int GenerateHeightMountains(float x, float z)
+    {
+        float height = Map(65, maxHeightMountains, 0, 1, fBM(x * smoothMountains, z * smoothMountains, octavesMountains, persistenceMountains));
+        if(height < 106)
+        {
+            return GenerateHeight(x, z);
+        }
+        return (int)height;
+    }
 
     // TODO: watch tutorial again -> for cactus?
 
@@ -86,7 +99,7 @@ public class Utils
         float frequency = 1;
         float amplitude = 1;
         float maxValue = 0;
-        float offset = 32000f;
+        float offset = 32000;
         for(int i = 0; i < oct ; i++) 
         {
                 total += Mathf.PerlinNoise((x + offset) * frequency, (z + offset) * frequency) * amplitude; // Generate 2D Perlin Noise for each octavte
