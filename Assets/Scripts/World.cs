@@ -213,10 +213,14 @@ public class World : MonoBehaviour
     /// </summary>
 	void Start ()
     {
-		Vector3 ppos = player.transform.position;
+		Vector3 ppos = player.transform.position + new Vector3(60,0,60);
+        Debug.Log(ppos);
+
 		player.transform.position = new Vector3(ppos.x,
-											Utils.GenerateHeight(ppos.x,ppos.z) + 1,
+											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
 											ppos.z);
+        Debug.Log(Utils.GenerateHeightMountains(ppos.x, ppos.z));
+        Debug.Log(player.transform.position);
 		lastbuildPos = player.transform.position;
 		player.SetActive(false);
 
