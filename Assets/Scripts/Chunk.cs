@@ -198,22 +198,22 @@ public class Chunk
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
 						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
 						};
 						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
 						};
 						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
 						};
 						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
 						};
 						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.GRASS);
 						};
 						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.SAND);
+							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
 						};
 
 					}
