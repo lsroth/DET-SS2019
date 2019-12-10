@@ -193,7 +193,7 @@ public class Chunk
 						chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
 					}
 					if(worldY < 106 && worldY == surfaceHeight){
-						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f) {
+						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
 							chunkData[x,y,z] = new Block(Block.BlockType.PUMPKIN, pos, chunk.gameObject, this);
 							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
@@ -226,22 +226,22 @@ public class Chunk
                     else if (worldY < Utils.startHeightMountains-2.9) {
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
-						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.PUMPKIN) {
 							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
 						};
 
