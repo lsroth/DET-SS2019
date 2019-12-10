@@ -23,6 +23,9 @@ public class Block
 	public int currentHealth;
 	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3 };
 
+    public Vector3 globalPos;
+   
+
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
 		// TODO: change grass textures -> no dirt
@@ -90,6 +93,7 @@ public class Block
 		parent = p;
 		position = pos;
 		SetType(blockType);
+        globalPos = parent.transform.position + position;
 	}
 
     /// <summary>
@@ -115,6 +119,7 @@ public class Block
 		
 		if(blockType == BlockType.SAND){
 			if(hasAnyWaterNeighbour()){
+                Debug.Log("true");
 				blockType = BlockType.GRASS;
 			}
 		}
@@ -192,10 +197,12 @@ public class Block
 
 
 	private void printNeighbours(){
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
-		Debug.Log(GetBlockType((int)position.x - 1,(int)position.y,(int)position.z)); 
-		Debug.Log(GetBlockType((int)position.x + 1,(int)position.y,(int)position.z));
+        Debug.Log(position);
+        Debug.Log(parent.transform.position+position);
+		Debug.Log(GetBlockType((int)globalPos.x,(int)globalPos.y,(int)globalPos.z + 1)); 
+		Debug.Log(GetBlockType((int)globalPos.x,(int)globalPos.y,(int)globalPos.z - 1)); 
+		Debug.Log(GetBlockType((int)globalPos.x - 1,(int)globalPos.y,(int)globalPos.z)); 
+		Debug.Log(GetBlockType((int)globalPos.x + 1,(int)globalPos.y,(int)globalPos.z));
 	}
     /// <summary>
     /// Assembles one side of a cube's mesh by selecting the UVs, defining the vertices and calculating the normals.
@@ -369,7 +376,8 @@ public class Block
     /// <returns>Returns the BlockType of a block that was specified by its position</returns>
     public BlockType GetBlockType(int x, int y, int z)
 	{
-		Block b = GetBlock(x, y, z);
+		Block b = World.GetWorldBlock(new Vector3(x, y, z));
+
 		if(b == null)
 			return BlockType.AIR;
 		else
@@ -440,7 +448,7 @@ public class Block
 	{
 		try
 		{
-			Block b = GetBlock(x,y,z);
+			Block b = World.GetWorldBlock(new Vector3 (x,y,z));
 			if(b != null)
 				return (b.isSolid || b.blockType == blockType);
 		}
@@ -452,7 +460,7 @@ public class Block
 	public bool HasWaterNeighbour(int x, int y, int z){
 		try
 		{
-			Block b = GetBlock(x,y,z);
+			Block b = World.GetWorldBlock(new Vector3(x,y,z));
 			if(b != null)
 				return (b.isWater);
 		}
@@ -462,12 +470,12 @@ public class Block
 	}
 
 	public bool hasAnyWaterNeighbour(){
-		if(HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z + 1) 
-			|| HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z - 1) 
-			|| HasWaterNeighbour((int)position.x,(int)position.y + 1,(int)position.z) 
-			|| HasWaterNeighbour((int)position.x,(int)position.y - 1,(int)position.z)
-			|| HasWaterNeighbour((int)position.x - 1,(int)position.y,(int)position.z) 
-			|| HasWaterNeighbour((int)position.x + 1,(int)position.y,(int)position.z)){
+		if(HasWaterNeighbour((int)globalPos.x,(int)globalPos.y,(int)globalPos.z + 1) 
+			|| HasWaterNeighbour((int)globalPos.x,(int)globalPos.y,(int)globalPos.z - 1) 
+			|| HasWaterNeighbour((int)globalPos.x,(int)globalPos.y + 1,(int)globalPos.z) 
+			|| HasWaterNeighbour((int)globalPos.x,(int)globalPos.y - 1,(int)globalPos.z)
+			|| HasWaterNeighbour((int)globalPos.x - 1,(int)globalPos.y,(int)globalPos.z) 
+			|| HasWaterNeighbour((int)globalPos.x + 1,(int)globalPos.y,(int)globalPos.z)){
 			return true;
 		} 
 		return false;
@@ -479,17 +487,17 @@ public class Block
 	{
 		if(blockType == BlockType.AIR) return;
 		// Solid or same neighbour
-		if(!HasSolidNeighbour((int)position.x,(int)position.y,(int)position.z + 1))
+		if(!HasSolidNeighbour((int)globalPos.x,(int)globalPos.y,(int)globalPos.z + 1))
 			CreateQuad(Cubeside.FRONT);
-		if(!HasSolidNeighbour((int)position.x,(int)position.y,(int)position.z - 1))
+		if(!HasSolidNeighbour((int)globalPos.x,(int)globalPos.y,(int)globalPos.z - 1))
 			CreateQuad(Cubeside.BACK);
-		if(!HasSolidNeighbour((int)position.x,(int)position.y + 1,(int)position.z))
+		if(!HasSolidNeighbour((int)globalPos.x,(int)globalPos.y + 1,(int)globalPos.z))
 			CreateQuad(Cubeside.TOP);
-		if(!HasSolidNeighbour((int)position.x,(int)position.y - 1,(int)position.z))
+		if(!HasSolidNeighbour((int)globalPos.x,(int)globalPos.y - 1,(int)globalPos.z))
 			CreateQuad(Cubeside.BOTTOM);
-		if(!HasSolidNeighbour((int)position.x - 1,(int)position.y,(int)position.z))
+		if(!HasSolidNeighbour((int)globalPos.x - 1,(int)globalPos.y,(int)globalPos.z))
 			CreateQuad(Cubeside.LEFT);
-		if(!HasSolidNeighbour((int)position.x + 1,(int)position.y,(int)position.z))
+		if(!HasSolidNeighbour((int)globalPos.x + 1,(int)globalPos.y,(int)globalPos.z))
 			CreateQuad(Cubeside.RIGHT);
 	}
 }
