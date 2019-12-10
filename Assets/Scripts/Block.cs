@@ -360,6 +360,12 @@ public class Block
 		return i;
 	}
 
+    Vector3 ConvertPositionIntoGlobal(Vector3 pos)
+    {
+        Vector3 globalPos = parent.transform.position + pos;
+        return globalPos;
+    }
+
     /// <summary>
     /// Given a position of a block, it returns the type of the specified block.
     /// </summary>
@@ -385,49 +391,23 @@ public class Block
     /// <returns>Returns the block that was specified by its position</returns>
 	public Block GetBlock(int x, int y, int z)
 	{
-		Block[,,] chunks;
+        Block[,,] chunks;
 
         // Test whether the adjacent block is in a neighbouring chunk or not
         // This is determined upon the indices
         // If one indice is -1 or is equal to the chunk size, the block is located in a neighbouring chunk
-		if(x < 0 || x >= World.chunkSize || 
-		   y < 0 || y >= World.chunkSize ||
-		   z < 0 || z >= World.chunkSize)
-		{ 
-            // Determine the adjacent chunk
-			int newX = x, newY = y, newZ = z;
-			if(x < 0 || x >= World.chunkSize)
-				newX = (x - (int)position.x)*World.chunkSize;
-			if(y < 0 || y >= World.chunkSize)
-				newY = (y - (int)position.y)*World.chunkSize;
-			if(z < 0 || z >= World.chunkSize)
-				newZ = (z - (int)position.z)*World.chunkSize;
-
-			Vector3 neighbourChunkPos = this.parent.transform.position + 
-										new Vector3(newX, newY, newZ);
-			string nName = World.BuildChunkName(neighbourChunkPos);
-
-            // Convert the position of the desired block
-            // E.g. from (-1, 2, 2) to (0, 2, 2)
-            // E.g. from (4, 3, 2) to (0, 3, 2) if the chunk size is 5
-			x = ConvertBlockIndexToLocal(x);
-			y = ConvertBlockIndexToLocal(y);
-			z = ConvertBlockIndexToLocal(z);
-			
-			Chunk nChunk;
-			if(World.chunks.TryGetValue(nName, out nChunk))
-			{
-				chunks = nChunk.chunkData;
-			}
-			else
-				return null;
-		}
+        if (x < 0 || x >= World.chunkSize ||
+           y < 0 || y >= World.chunkSize ||
+           z < 0 || z >= World.chunkSize)
+        {
+            return World.GetWorldBlock(ConvertPositionIntoGlobal(new Vector3(x, y, z)));
+        }
         // Block in this chunk
-		else
-			chunks = owner.chunkData;
+        else
+            chunks = owner.chunkData;
 
-		return chunks[x,y,z];
-	}
+        return chunks[x, y, z];
+    }
 
     /// <summary>
     /// Tests whether the specificed block is solid or not solid.
