@@ -190,10 +190,33 @@ public class Chunk
                     //	chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, 
                     //	                chunk.gameObject, this);
 					else if (worldY == surfaceHeight) {
-						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f)
-							chunkData[x,y,z] = new Block(Block.BlockType.CACTUS, pos, chunk.gameObject, this);
-						else
-							chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);	
+						chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+					}
+					if(worldY < 106 && worldY == surfaceHeight){
+						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f) {
+							chunkData[x,y,z] = new Block(Block.BlockType.PUMPKIN, pos, chunk.gameObject, this);
+							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.PUMPKIN) {
+							chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.PUMPKIN) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.PUMPKIN) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.PUMPKIN) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.PUMPKIN) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.PUMPKIN) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+							};
+						}
+						else {
+							chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+						}
 					}
                     else if (worldY <= surfaceHeight)
                     {
@@ -259,22 +282,22 @@ public class Chunk
     /// </summary>
 	public void DrawChunk()
 	{
-		// if(!treesCreated)
-		// {
-		// 	for(int z = 0; z < World.chunkSize; z++)
-		// 		for(int y = 0; y < World.chunkSize; y++)
-		// 			for(int x = 0; x < World.chunkSize; x++)
-		// 			{
-		// 				//BuildTrees(chunkData[x,y,z],x,y,z);
-		// 				if(trunk.blockType == Block.BlockType.CACTUS) {
-		// 					Block t = trunk.GetBlock(x, y+1, z);
-		// 					if (t != null) {
-		// 						t.SetType(Block.BlockType.CACTUS);
-		// 					}
-		// 				}
-		// 			}
-		// 	treesCreated = true;		
-		// }
+		if(!treesCreated)
+		{
+			for(int z = 0; z < World.chunkSize; z++)
+				for(int y = 0; y < World.chunkSize; y++)
+					for(int x = 0; x < World.chunkSize; x++)
+					{
+						BuildTrees(chunkData[x,y,z],x,y,z);
+						// if(trunk.blockType == Block.BlockType.CACTUS) {
+						// 	Block t = trunk.GetBlock(x, y+1, z);
+						// 	if (t != null) {
+						// 		t.SetType(Block.BlockType.CACTUS);
+						// 	}
+						// }
+					}
+			treesCreated = true;		
+		}
 		for(int z = 0; z < World.chunkSize; z++)
 			for(int y = 0; y < World.chunkSize; y++)
 				for(int x = 0; x < World.chunkSize; x++)
@@ -304,12 +327,13 @@ public class Chunk
 	private void BuildTrees(Block trunk, int x, int y, int z)
 	{
         // Do not build a tree if there is no woodbase
-		if(trunk.blockType != Block.BlockType.CACTUS) return;
+		if(trunk.blockType != Block.BlockType.PUMPKIN) return;
 
 		Block t = trunk.GetBlock(x, y+1, z);
-		if(t != null)
+		if(t != null )
 		{
-			t.SetType(Block.BlockType.CACTUS);		
+			t.SetType(Block.BlockType.CACTUS);
+			trunk.SetType(Block.BlockType.CACTUS);
 		    // Block t1 = t.GetBlock(x, y+2, z);
 		    // if(t1 != null)
 		    // {
