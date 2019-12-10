@@ -189,6 +189,12 @@ public class Chunk
                     //else if(worldY < surfaceHeight)
                     //	chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, 
                     //	                chunk.gameObject, this);
+					else if (worldY == surfaceHeight) {
+						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f)
+							chunkData[x,y,z] = new Block(Block.BlockType.CACTUS, pos, chunk.gameObject, this);
+						else
+							chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);	
+					}
                     else if (worldY <= surfaceHeight)
                     {
                         chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
@@ -259,7 +265,13 @@ public class Chunk
 		// 		for(int y = 0; y < World.chunkSize; y++)
 		// 			for(int x = 0; x < World.chunkSize; x++)
 		// 			{
-		// 				BuildTrees(chunkData[x,y,z],x,y,z);
+		// 				//BuildTrees(chunkData[x,y,z],x,y,z);
+		// 				if(trunk.blockType == Block.BlockType.CACTUS) {
+		// 					Block t = trunk.GetBlock(x, y+1, z);
+		// 					if (t != null) {
+		// 						t.SetType(Block.BlockType.CACTUS);
+		// 					}
+		// 				}
 		// 			}
 		// 	treesCreated = true;		
 		// }
@@ -289,40 +301,22 @@ public class Chunk
     /// <param name="x">x position of the block</param>
     /// <param name="y">y position of the block</param>
     /// <param name="z">z position of the block</param>
-	// private void BuildTrees(Block trunk, int x, int y, int z)
-	// {
-    //     // Do not build a tree if there is no woodbase
-	// 	if(trunk.blockType != Block.BlockType.WOODBASE) return;
+	private void BuildTrees(Block trunk, int x, int y, int z)
+	{
+        // Do not build a tree if there is no woodbase
+		if(trunk.blockType != Block.BlockType.CACTUS) return;
 
-	// 	Block t = trunk.GetBlock(x, y+1, z);
-	// 	if(t != null)
-	// 	{
-	// 		t.SetType(Block.BlockType.WOOD);		
-	// 	    Block t1 = t.GetBlock(x, y+2, z);
-	// 	    if(t1 != null)
-	// 	    {
-	// 		    t1.SetType(Block.BlockType.WOOD);
-
-	// 			for(int i = -1; i <= 1; i++)
-	// 				for(int j = -1; j <= 1; j++)
-	// 					for(int k = 3; k <= 4; k++)
-	// 				{
-	// 					Block t2 = trunk.GetBlock(x+i, y+k, z+j);
-
-	// 					if(t2 != null)
-	// 					{
-	// 						t2.SetType(Block.BlockType.LEAVES);
-	// 					}
-	// 					else return;
-	// 				}
-	// 			Block t3 = t1.GetBlock(x, y+5, z);
-	// 			if(t3 != null)
-	// 			{
-	// 				t3.SetType(Block.BlockType.LEAVES);
-	// 			}
-	// 		}
-	// 	}
-	// }
+		Block t = trunk.GetBlock(x, y+1, z);
+		if(t != null)
+		{
+			t.SetType(Block.BlockType.CACTUS);		
+		    // Block t1 = t.GetBlock(x, y+2, z);
+		    // if(t1 != null)
+		    // {
+			//     t1.SetType(Block.BlockType.CACTUS);
+			// }
+		}
+	}
 
     /// <summary>
     /// Empty constructor.
