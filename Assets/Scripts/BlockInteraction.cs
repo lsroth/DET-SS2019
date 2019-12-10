@@ -18,20 +18,25 @@ public class BlockInteraction : MonoBehaviour
     {
         if(Input.GetKeyDown("1"))
         	buildtype = Block.BlockType.CACTUS;
-        if(Input.GetKeyDown("2"))
-        	buildtype = Block.BlockType.WATER;
+        //if(Input.GetKeyDown("2"))
+        //	buildtype = Block.BlockType.WATER;
         //if(Input.GetKeyDown("3"))
         //	buildtype = Block.BlockType.DIAMOND;
         // if(Input.GetKeyDown("4"))
         // 	buildtype = Block.BlockType.REDSTONE;
-        if(Input.GetKeyDown("3"))
-        	buildtype = Block.BlockType.STONE;
-		if (Input.GetKeyDown("4"))
-			buildtype = Block.BlockType.SAND;
-		if (Input.GetKeyDown("5"))
-			buildtype = Block.BlockType.GRASS;
-		if (Input.GetKeyDown("6"))
+  //      if(Input.GetKeyDown("3"))
+  //      	buildtype = Block.BlockType.STONE;
+		//if (Input.GetKeyDown("4"))
+		//	buildtype = Block.BlockType.SAND;
+		//if (Input.GetKeyDown("5"))
+		//	buildtype = Block.BlockType.GRASS;
+		if (Input.GetKeyDown("2"))
 			buildtype = Block.BlockType.PUMPKIN;
+        if (Input.GetKeyDown("3"))
+            buildtype = Block.BlockType.LISA;
+        if (Input.GetKeyDown("4"))
+            buildtype = Block.BlockType.JULIA;
+
 
         // If left or right mouse button
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
