@@ -9,7 +9,7 @@ public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
 	public enum BlockType {GRASS, CACTUS, WATER, STONE, SAND, BEDROCK, NOCRACK,
-							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN};
+							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA};
 
 	public BlockType blockType;
 	public bool isSolid;
@@ -21,7 +21,7 @@ public class Block
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3 };
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3};
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
@@ -33,8 +33,8 @@ public class Block
 								new Vector2( 0.0625f, 0.4375f ),new Vector2( 0.125f, 0.4375f )},
 		/*2 CACTUS TOP */	{ new Vector2(0.3125f, 0.6875f), new Vector2(0.375f,0.6875f), 
 								new Vector2(0.3125f,0.75f), new Vector2(0.375f,0.75f)},
-		/*3 CACTUS SIDE*/	{ new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f), 
-								new Vector2(0.375f,0.75f), new Vector2(0.4375f,0.75f)},
+		/*3 CACTUS SIDE*/	{ new Vector2(0.375f,0.6875f), new Vector2(0.4375f,0.6875f),
+                                new Vector2(0.375f,0.75f), new Vector2(0.4375f,0.75f)},
 		/*4 WATER*/			{ new Vector2(0.875f,0.125f),  new Vector2(0.9375f,0.125f),
  								new Vector2(0.875f,0.1875f), new Vector2(0.9375f,0.1875f)},
 		/*5 STONE*/			{new Vector2( 0, 0.875f ), new Vector2( 0.0625f, 0.875f),
@@ -59,6 +59,15 @@ public class Block
  								new Vector2(0.375f,0.5625f), new Vector2(0.4375f,0.5625f)},
 		/*15 PUMPKIN TOP */ { new Vector2(0.375f,0.5625f),  new Vector2(0.4375f,0.5625f),
  								new Vector2(0.375f,0.625f), new Vector2(0.4375f,0.625f)},
+		/*16 LISA TOP */	{ new Vector2(0.7f, 0.4375f), new Vector2(0.75f,0.4375f),
+                                new Vector2(0.7f,0.5f), new Vector2(0.75f,0.5f)},
+		/*17 LISA SIDE */	{ new Vector2(0.625f, 0.4375f), new Vector2(0.6875f,0.4375f),
+                                new Vector2(0.625f,0.5f), new Vector2(0.6875f,0.5f)},
+		/*18 JULIA TOP */	{ new Vector2(0.5625f, 0.4375f), new Vector2(0.625f,0.4375f),
+                                new Vector2(0.5625f,0.5f), new Vector2(0.625f,0.5f)},
+		/*19 JULIA SIDE */	{ new Vector2(0.5f, 0.4375f), new Vector2(0.5625f,0.4375f),
+                                new Vector2(0.5f,0.5f), new Vector2(0.5625f,0.5f)},
+
 		
 		// /*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
 		// 						new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
@@ -255,8 +264,35 @@ public class Block
 			uv10 = blockUVs[(int)(blockType+3),1];
 			uv01 = blockUVs[(int)(blockType+3),2];
 			uv11 = blockUVs[(int)(blockType+3),3];
-		}
-		else {
+        } else if (blockType == BlockType.LISA && side == Cubeside.TOP) {
+            uv00 = blockUVs[(int)(blockType + 3), 0];
+            uv10 = blockUVs[(int)(blockType + 3), 1];
+            uv01 = blockUVs[(int)(blockType + 3), 2];
+            uv11 = blockUVs[(int)(blockType + 3), 3];
+        } else if (blockType == BlockType.LISA)
+        {
+            uv00 = blockUVs[(int)(blockType + 4), 0];
+            uv10 = blockUVs[(int)(blockType + 4), 1];
+            uv01 = blockUVs[(int)(blockType + 4), 2];
+            uv11 = blockUVs[(int)(blockType + 4), 3];
+
+        } else if (blockType == BlockType.JULIA && side == Cubeside.TOP)
+        {
+            uv00 = blockUVs[(int)(blockType + 4), 0];
+            uv10 = blockUVs[(int)(blockType + 4), 1];
+            uv01 = blockUVs[(int)(blockType + 4), 2];
+            uv11 = blockUVs[(int)(blockType + 4), 3];
+
+        } else if (blockType == BlockType.JULIA)
+        {
+            uv00 = blockUVs[(int)(blockType + 5), 0];
+            uv10 = blockUVs[(int)(blockType + 5), 1];
+            uv01 = blockUVs[(int)(blockType + 5), 2];
+            uv11 = blockUVs[(int)(blockType + 5), 3];
+
+        }
+
+        else {
 			uv00 = blockUVs[(int)(blockType+2),0];
 			uv10 = blockUVs[(int)(blockType+2),1];
 			uv01 = blockUVs[(int)(blockType+2),2];
