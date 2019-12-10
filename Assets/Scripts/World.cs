@@ -212,8 +212,11 @@ public class World : MonoBehaviour
     /// Player is disabled during Start() to avoid him falling through the floor. Chunks are built using coroutines.
     /// </summary>
 	void Start ()
-    {
-		Vector3 ppos = player.transform.position + new Vector3(50,0,50);
+    {	
+		Random.InitState(1000);
+		int rndx = (int) Random.Range(-100f, 100f);
+		int rndz = (int) Random.Range(-100f, 100f);
+		Vector3 ppos = player.transform.position + new Vector3(rndx,0,rndz);
 
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
