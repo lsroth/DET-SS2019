@@ -7,7 +7,7 @@
 /// </summary>
 public class Utils
 {
-    static readonly float smooth = 0.07f;
+    static readonly float smooth = 0.07f; 
     static readonly int octaves = 3;
     static readonly float persistence = 0.5f;
 
@@ -97,10 +97,10 @@ public class Utils
     /// <returns></returns>
     static float fBM(float x, float z, int oct, float pers)
     {
-        float total = 0;
-        float frequency = 1;
-        float amplitude = 1;
-        float maxValue = 0;
+        float total = 0;    	//startHeight (sets everything higher)
+        float frequency = 1;    //startFrequency (sets frequency)
+        float amplitude = 1;    //startAmplitude
+        float maxValue = 0;     //maximum: maps until maxValue
         float offset = 32000;
         for(int i = 0; i < oct ; i++) 
         {
