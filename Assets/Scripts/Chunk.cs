@@ -46,13 +46,13 @@ public class Chunk
 	public enum ChunkStatus
     {
         DRAW,                       // DRAW: data of the chunk has been created and needs to be rendered next
-        DONE                        // DONE: Trees have been built and the chunk has been rendered
+        DONE                        // DONE: cactus have been built and the chunk has been rendered
     };
 	public ChunkStatus status;      // Current state of the chunk
 	public ChunkMB mb;              // The MonoBehaviour of the Chunk
 	BlockData bd;                   // 
 	public bool changed = false;    // If a chunk got modified (e.g. a block got destroyed by the player), set this to true to redraw the chunk upon the next update.
-	bool treesCreated = false;      // 
+	bool cactusCreated = false;      // 
 
     /// <summary>
     /// Creates a file name for the to be saved or loaded chunk based on its position. On Windows machines the data is saved in AppData\LocalLow\DefaultCompany.
@@ -175,7 +175,7 @@ public class Chunk
                     //		chunkData[x,y,z] = new Block(Block.BlockType.STONE, pos, 
                     //	                chunk.gameObject, this);
                     //}
-                    //               // Place trunks of a tree or grass blocks on the surface
+                    //               // Place trunks of a cactus or grass blocks on the surface
                     //else if(worldY == surfaceHeight)
                     //{
                     //	if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f)
@@ -278,12 +278,12 @@ public class Chunk
 	}
 
     /// <summary>
-    /// Draws the chunk. If trees are not created yet, create them.
+    /// Draws the chunk. If cactus are not created yet, create them.
     /// The draw process creates meshes for all blocks and then combines them to a solid and a transparent mesh.
     /// </summary>
 	public void DrawChunk()
 	{
-		if(!treesCreated)
+		if(!cactusCreated)
 		{
 			for(int z = 0; z < World.chunkSize; z++)
 				for(int y = 0; y < World.chunkSize; y++)
@@ -297,7 +297,7 @@ public class Chunk
 								chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
 							}
 						}
-						BuildTrees(chunkData[x,y,z],x,y,z);
+						BuildCactus(chunkData[x,y,z],x,y,z);
 						// if(trunk.blockType == Block.BlockType.CACTUS) {
 						// 	Block t = trunk.GetBlock(x, y+1, z);
 						// 	if (t != null) {
@@ -305,7 +305,7 @@ public class Chunk
 						// 	}
 						// }
 					}
-			treesCreated = true;		
+			cactusCreated = true;		
 		}
 		for(int z = 0; z < World.chunkSize; z++)
 			for(int y = 0; y < World.chunkSize; y++)
@@ -327,13 +327,13 @@ public class Chunk
 
     /// <summary>
     /// Trunks are already place within the BuildChunk method.
-    /// For each trunk, build a tree.
+    /// For each trunk, build a cactus.
     /// </summary>
-    /// <param name="trunk">Woodbase block as a trunk of the to be created tree</param>
+    /// <param name="trunk">Woodbase block as a trunk of the to be created cactus</param>
     /// <param name="x">x position of the block</param>
     /// <param name="y">y position of the block</param>
     /// <param name="z">z position of the block</param>
-	private void BuildTrees(Block trunk, int x, int y, int z)
+	private void BuildCactus(Block trunk, int x, int y, int z)
 	{
         // Do not build a cactus if there is no cactusbase
 		if(trunk.blockType != Block.BlockType.CACTUSBASE) return;
