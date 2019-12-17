@@ -111,6 +111,18 @@ public class World : MonoBehaviour
 		}
 	}
 
+	private void setCactusAt(int x, int y, int z) {
+		String name = World.BuildChunkName(new Vector3(x,y,z));
+		Chunk c;
+		if(chunks.TryGetValue(name, out c))
+		{
+			if(!c.cactusCreated){
+				c.createCactus;
+				c.cactusCreated = true;
+			}
+		}
+	}
+
     /// <summary>
     /// Coroutine to to recursively build chunks of the world depending on some location and a radius.
     /// </summary>
@@ -144,14 +156,23 @@ public class World : MonoBehaviour
 		queue.Run(BuildRecursiveWorld(x+1,y,z,rad,nextrad));
 		yield return null;
 		
+		// Build chunk down
+		BuildChunkAt(x,y-1,z);
+		queue.Run(BuildRecursiveWorld(x,y-1,z,rad,nextrad));
+		yield return null;
+		
 		// Build chunk up
 		BuildChunkAt(x,y+1,z);
 		queue.Run(BuildRecursiveWorld(x,y+1,z,rad,nextrad));
 		yield return null;
 		
-		// Build chunk down
-		BuildChunkAt(x,y-1,z);
-		queue.Run(BuildRecursiveWorld(x,y-1,z,rad,nextrad));
+		setCactusAt(x+1,y,z);
+		setCactusAt(x-1,y,z);
+		setCactusAt(x,y+1,z);
+		setCactusAt(x,y-1,z);
+		setCactusAt(x,y,z+1);
+		setCactusAt(x,y,z-1);
+		setCactusAt(x,y,z);
 		yield return null;
 	}
 
@@ -218,7 +239,7 @@ public class World : MonoBehaviour
 		int seed = (int) this.seeds[Random.Range(0,seeds.Length-1)];
 		
 		//Debug.Log(Random.Range(0,seeds.Length));
-		Debug.Log(seed);
+		//Debug.Log(seed);
 
 		Random.InitState(seed);
 		int rndx = (int) Random.Range(-100f, 100f);

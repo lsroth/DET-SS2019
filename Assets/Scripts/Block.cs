@@ -190,8 +190,8 @@ public class Block
 		if(currentHealth == -1) return false;
 		currentHealth--;
 		health++;
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z)); 
-		//printNeighbours();
+		//Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z)); 
+		printNeighbours();
 		if(currentHealth == (blockHealthMax[(int)blockType]-1))
 		{
 			owner.mb.StartCoroutine(owner.mb.HealBlock(position));

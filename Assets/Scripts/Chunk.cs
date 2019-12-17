@@ -52,7 +52,7 @@ public class Chunk
 	public ChunkMB mb;              // The MonoBehaviour of the Chunk
 	BlockData bd;                   // 
 	public bool changed = false;    // If a chunk got modified (e.g. a block got destroyed by the player), set this to true to redraw the chunk upon the next update.
-	bool cactusCreated = false;      // 
+	public bool cactusCreated = false;      // 
 
     /// <summary>
     /// Creates a file name for the to be saved or loaded chunk based on its position. On Windows machines the data is saved in AppData\LocalLow\DefaultCompany.
@@ -153,11 +153,6 @@ public class Chunk
 					}
 
                     int surfaceHeight = Utils.GenerateHeightMountains(worldX, worldZ);
-                    //               if(surfaceHeight < 106)
-                    //               {
-                    //                   surfaceHeight = Utils.GenerateHeight(worldX, worldZ);
-                    //               }
-
                     // Place bedrock at height 0
                     if (worldY == 0)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
@@ -195,22 +190,28 @@ public class Chunk
 					if(worldY < 106 && worldY == surfaceHeight){
 						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
 							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
-							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.WATER) {
 							chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.WATER) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.WATER) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.WATER) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.WATER) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE ||
+								chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.WATER) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
 						}
@@ -283,30 +284,6 @@ public class Chunk
     /// </summary>
 	public void DrawChunk()
 	{
-		if(!cactusCreated)
-		{
-			for(int z = 0; z < World.chunkSize; z++)
-				for(int y = 0; y < World.chunkSize; y++)
-					for(int x = 0; x < World.chunkSize; x++)
-					{
-						 // Do not build a cactus if there is no cactusbase
-						if(chunkData[x,y,z].blockType == Block.BlockType.CACTUSBASE) {
-							Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
-							if(t != null ){
-								t.SetType(Block.BlockType.CACTUS);
-								chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
-							}
-						}
-						BuildCactus(chunkData[x,y,z],x,y,z);
-						// if(trunk.blockType == Block.BlockType.CACTUS) {
-						// 	Block t = trunk.GetBlock(x, y+1, z);
-						// 	if (t != null) {
-						// 		t.SetType(Block.BlockType.CACTUS);
-						// 	}
-						// }
-					}
-			cactusCreated = true;		
-		}
 		for(int z = 0; z < World.chunkSize; z++)
 			for(int y = 0; y < World.chunkSize; y++)
 				for(int x = 0; x < World.chunkSize; x++)
@@ -323,6 +300,23 @@ public class Chunk
 		CombineQuads(fluid.gameObject, fluidMaterial);
 
 		status = ChunkStatus.DONE;
+	}
+
+	public createCactus(){
+		for(int z = World.chunkSize-1; z >= 0; z--)
+			for(int y = World.chunkSize-1; y >= 0; y--)
+				for(int x = World.chunkSize-1; x >= 0 ; x--)
+				{
+						// Do not build a cactus if there is no cactusbase
+					if(chunkData[x,y,z].blockType == Block.BlockType.CACTUSBASE) {
+						Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
+						if(t != null ){
+							t.SetType(Block.BlockType.CACTUS);
+							chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
+						}
+					}
+					BuildCactus(chunkData[x,y,z],x,y,z);
+				}
 	}
 
     /// <summary>
