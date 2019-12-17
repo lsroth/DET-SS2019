@@ -260,6 +260,7 @@ public class Chunk
 
 					status = ChunkStatus.DRAW;
 				}
+
 	}
 
     /// <summary>
@@ -288,6 +289,14 @@ public class Chunk
 				for(int y = 0; y < World.chunkSize; y++)
 					for(int x = 0; x < World.chunkSize; x++)
 					{
+						 // Do not build a tree if there is no woodbase
+						if(chunkData[x,y,z].blockType == Block.BlockType.PUMPKIN) {
+							Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
+							if(t != null ){
+								t.SetType(Block.BlockType.CACTUS);
+								chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
+							}
+						}
 						BuildTrees(chunkData[x,y,z],x,y,z);
 						// if(trunk.blockType == Block.BlockType.CACTUS) {
 						// 	Block t = trunk.GetBlock(x, y+1, z);
@@ -334,11 +343,6 @@ public class Chunk
 		{
 			t.SetType(Block.BlockType.CACTUS);
 			trunk.SetType(Block.BlockType.CACTUS);
-		    // Block t1 = t.GetBlock(x, y+2, z);
-		    // if(t1 != null)
-		    // {
-			//     t1.SetType(Block.BlockType.CACTUS);
-			// }
 		}
 	}
 
