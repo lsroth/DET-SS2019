@@ -9,7 +9,7 @@ public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
 	public enum BlockType {GRASS, CACTUS, WATER, STONE, SAND, BEDROCK, NOCRACK,
-							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA};
+							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA, HELGE};
 
 	public BlockType blockType;
 	public bool isSolid;
@@ -21,7 +21,7 @@ public class Block
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3};
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 5};
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
@@ -179,7 +179,8 @@ public class Block
 		if(currentHealth == -1) return false;
 		currentHealth--;
 		health++;
-		printNeighbours();
+		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z)); 
+		//printNeighbours();
 		if(currentHealth == (blockHealthMax[(int)blockType]-1))
 		{
 			owner.mb.StartCoroutine(owner.mb.HealBlock(position));
@@ -290,8 +291,13 @@ public class Block
             uv01 = blockUVs[(int)(blockType + 5), 2];
             uv11 = blockUVs[(int)(blockType + 5), 3];
 
-        }
-
+        } else if (blockType == BlockType.HELGE)
+		{
+            uv00 = blockUVs[6, 0];
+            uv10 = blockUVs[6, 1];
+            uv01 = blockUVs[6, 2];
+            uv11 = blockUVs[6, 3];
+		}
         else {
 			uv00 = blockUVs[(int)(blockType+2),0];
 			uv10 = blockUVs[(int)(blockType+2),1];

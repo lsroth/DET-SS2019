@@ -201,7 +201,7 @@ public class Chunk
                     }
                     // Place water blocks below height 65
                     else if (worldY < Utils.startHeightMountains-2.9) {
-                        chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
+                        chunkData[x, y, z] = new Block(Block.BlockType.HELGE, pos,
                                         fluid.gameObject, this);
 						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
