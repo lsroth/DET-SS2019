@@ -194,23 +194,23 @@ public class Chunk
 					}
 					if(worldY < 106 && worldY == surfaceHeight){
 						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
-							chunkData[x,y,z] = new Block(Block.BlockType.PUMPKIN, pos, chunk.gameObject, this);
-							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.PUMPKIN) {
+							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
+							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.PUMPKIN) {
+							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.PUMPKIN) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.PUMPKIN) {
+							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.PUMPKIN) {
+							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.PUMPKIN) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
 						}
@@ -224,24 +224,24 @@ public class Chunk
                     }
                     // Place water blocks below height 65
                     else if (worldY < Utils.startHeightMountains-2.9) {
-                        chunkData[x, y, z] = new Block(Block.BlockType.HELGE, pos,
+                        chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
-						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.PUMPKIN) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
 							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
 						};
 
@@ -289,8 +289,8 @@ public class Chunk
 				for(int y = 0; y < World.chunkSize; y++)
 					for(int x = 0; x < World.chunkSize; x++)
 					{
-						 // Do not build a tree if there is no woodbase
-						if(chunkData[x,y,z].blockType == Block.BlockType.PUMPKIN) {
+						 // Do not build a cactus if there is no cactusbase
+						if(chunkData[x,y,z].blockType == Block.BlockType.CACTUSBASE) {
 							Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
 							if(t != null ){
 								t.SetType(Block.BlockType.CACTUS);
@@ -335,8 +335,8 @@ public class Chunk
     /// <param name="z">z position of the block</param>
 	private void BuildTrees(Block trunk, int x, int y, int z)
 	{
-        // Do not build a tree if there is no woodbase
-		if(trunk.blockType != Block.BlockType.PUMPKIN) return;
+        // Do not build a cactus if there is no cactusbase
+		if(trunk.blockType != Block.BlockType.CACTUSBASE) return;
 
 		Block t = trunk.GetBlock(x, y+1, z);
 		if(t != null )

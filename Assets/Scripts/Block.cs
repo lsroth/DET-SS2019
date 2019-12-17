@@ -9,7 +9,7 @@ public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
 	public enum BlockType {GRASS, CACTUS, WATER, STONE, SAND, BEDROCK, NOCRACK,
-							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA, SIGNBASE, SIGNLEFT, SIGNMIDDLE, SIGNRIGHT, HELGE};
+							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA, SIGNBASE, SIGNLEFT, SIGNMIDDLE, SIGNRIGHT, HELGE, CACTUSBASE};
 
 	public BlockType blockType;
 	public bool isSolid;
@@ -21,7 +21,7 @@ public class Block
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 2, 2, 2, 5};
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 2, 2, 2, 5, 1};
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
@@ -302,7 +302,7 @@ public class Block
             uv01 = blockUVs[(int)(blockType + 5), 2];
             uv11 = blockUVs[(int)(blockType + 5), 3];
 
-        } else if (blockType == BlockType.HELGE)
+        } else if (blockType == BlockType.HELGE || blockType == BlockType.CACTUSBASE)
 		{
             uv00 = blockUVs[6, 0];
             uv10 = blockUVs[6, 1];

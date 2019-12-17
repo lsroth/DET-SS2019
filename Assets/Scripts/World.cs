@@ -9,6 +9,7 @@ using Realtime.Messaging.Internal;
 /// </summary>
 public class World : MonoBehaviour
 {
+	public int[] seeds = new int[] {-360,-100,4,100,255,500,1000,1243,1370,1050,10400};
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
@@ -213,7 +214,13 @@ public class World : MonoBehaviour
     /// </summary>
 	void Start ()
     {	
-		Random.InitState(1000);
+		Random.seed = System.Environment.TickCount;
+		int seed = (int) this.seeds[Random.Range(0,seeds.Length-1)];
+		
+		//Debug.Log(Random.Range(0,seeds.Length));
+		Debug.Log(seed);
+
+		Random.InitState(seed);
 		int rndx = (int) Random.Range(-100f, 100f);
 		int rndz = (int) Random.Range(-100f, 100f);
 		Vector3 ppos = player.transform.position + new Vector3(rndx,0,rndz);
