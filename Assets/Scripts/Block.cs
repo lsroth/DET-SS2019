@@ -9,7 +9,7 @@ public class Block
 {
 	enum Cubeside {BOTTOM, TOP, LEFT, RIGHT, FRONT, BACK};
 	public enum BlockType {GRASS, CACTUS, WATER, STONE, SAND, BEDROCK, NOCRACK,
-							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA, HELGE};
+							CRACK1, CRACK2, CRACK3, CRACK4, AIR, PUMPKIN, LISA, JULIA, SIGNBASE, SIGNLEFT, SIGNMIDDLE, SIGNRIGHT, HELGE};
 
 	public BlockType blockType;
 	public bool isSolid;
@@ -21,7 +21,7 @@ public class Block
 
 	public BlockType health;
 	public int currentHealth;
-	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 5};
+	int[] blockHealthMax = {3, 3, 10, 4, 2, -1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 2, 2, 2, 2, 5};
 
     // Hard-coded UVs based on blockuvs.txt
 	Vector2[,] blockUVs = { 
@@ -67,6 +67,17 @@ public class Block
                                 new Vector2(0.5625f,0.5f), new Vector2(0.625f,0.5f)},
 		/*19 JULIA SIDE */	{ new Vector2(0.5f, 0.4375f), new Vector2(0.5625f,0.4375f),
                                 new Vector2(0.5f,0.5f), new Vector2(0.5625f,0.5f)},
+		/*20 SIGNBASE */	{ new Vector2(0.9375f, 0.5625f), new Vector2(1.0f,0.5625f),
+                                new Vector2(0.9375f,0.625f), new Vector2(1.0f,0.625f)},
+		/*21 TEXT LEFT */	{ new Vector2(0.8125f, 0.5f), new Vector2(0.875f,0.5f),
+                                new Vector2(0.8125f,0.5625f), new Vector2(0.875f,0.5625f)},
+		/*22 TEXT MIDDLE */	{ new Vector2(0.875f, 0.5f), new Vector2(0.9375f,0.5f),
+                                new Vector2(0.875f,0.5625f), new Vector2(0.9375f,0.5625f)},
+		/*23 TEXT RIGHT */	{ new Vector2(0.9375f, 0.5f), new Vector2(1.0f,0.5f),
+                                new Vector2(0.9375f,0.5625f), new Vector2(1.0f,0.5625f)},
+		/*24 SIGN SIDE */	{ new Vector2(0.25f, 0.9375f), new Vector2(0.3125f,0.9375f),
+                                new Vector2(0.25f,1.0f), new Vector2(0.3125f,1.0f)},
+						
 
 		
 		// /*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
@@ -284,7 +295,7 @@ public class Block
             uv01 = blockUVs[(int)(blockType + 4), 2];
             uv11 = blockUVs[(int)(blockType + 4), 3];
 
-        } else if (blockType == BlockType.JULIA)
+        } else if (blockType == BlockType.JULIA || blockType == BlockType.SIGNBASE)
         {
             uv00 = blockUVs[(int)(blockType + 5), 0];
             uv10 = blockUVs[(int)(blockType + 5), 1];
@@ -297,6 +308,55 @@ public class Block
             uv10 = blockUVs[6, 1];
             uv01 = blockUVs[6, 2];
             uv11 = blockUVs[6, 3];
+		} else if (blockType == BlockType.SIGNLEFT)
+		{	
+			if (side == Cubeside.BACK){
+				uv00 = blockUVs[21, 0];
+				uv10 = blockUVs[21, 1];
+				uv01 = blockUVs[21, 2];
+				uv11 = blockUVs[21, 3];
+			} else if (side == Cubeside.FRONT) {
+				uv00 = blockUVs[23, 0];
+				uv10 = blockUVs[23, 1];
+				uv01 = blockUVs[23, 2];
+				uv11 = blockUVs[23, 3];
+			} else {
+				uv00 = blockUVs[24, 0];
+				uv10 = blockUVs[24, 1];
+				uv01 = blockUVs[24, 2];
+				uv11 = blockUVs[24, 3];
+			}
+		} else if (blockType == BlockType.SIGNRIGHT)
+		{	
+			if (side == Cubeside.FRONT){
+				uv00 = blockUVs[21, 0];
+				uv10 = blockUVs[21, 1];
+				uv01 = blockUVs[21, 2];
+				uv11 = blockUVs[21, 3];
+			} else if (side == Cubeside.BACK) {
+				uv00 = blockUVs[23, 0];
+				uv10 = blockUVs[23, 1];
+				uv01 = blockUVs[23, 2];
+				uv11 = blockUVs[23, 3];
+			} else {
+				uv00 = blockUVs[24, 0];
+				uv10 = blockUVs[24, 1];
+				uv01 = blockUVs[24, 2];
+				uv11 = blockUVs[24, 3];
+			}
+		} else if (blockType == BlockType.SIGNMIDDLE)
+		{	
+			if (side == Cubeside.BACK || side == Cubeside.FRONT){
+				uv00 = blockUVs[22, 0];
+				uv10 = blockUVs[22, 1];
+				uv01 = blockUVs[22, 2];
+				uv11 = blockUVs[22, 3];
+			} else {
+				uv00 = blockUVs[24, 0];
+				uv10 = blockUVs[24, 1];
+				uv01 = blockUVs[24, 2];
+				uv11 = blockUVs[24, 3];
+			}
 		}
         else {
 			uv00 = blockUVs[(int)(blockType+2),0];

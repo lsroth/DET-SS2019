@@ -36,6 +36,14 @@ public class BlockInteraction : MonoBehaviour
             buildtype = Block.BlockType.LISA;
         if (Input.GetKeyDown("4"))
             buildtype = Block.BlockType.JULIA;
+        if (Input.GetKeyDown("5"))
+            buildtype = Block.BlockType.SIGNLEFT;
+        if (Input.GetKeyDown("6"))
+            buildtype = Block.BlockType.SIGNMIDDLE;
+        if (Input.GetKeyDown("7"))
+            buildtype = Block.BlockType.SIGNRIGHT;
+        if (Input.GetKeyDown("8"))
+            buildtype = Block.BlockType.SIGNBASE;
 
 
         // If left or right mouse button
@@ -62,7 +70,13 @@ public class BlockInteraction : MonoBehaviour
 				hitc = b.owner;
 
 				bool update = false; // Update determines whether a block got destroyed.
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) 
+						&& b.blockType != Block.BlockType.SIGNBASE 
+						&& b.blockType != Block.BlockType.SIGNLEFT
+						&& b.blockType != Block.BlockType.SIGNMIDDLE
+						&& b.blockType != Block.BlockType.SIGNRIGHT
+						&& b.blockType != Block.BlockType.JULIA
+						&& b.blockType != Block.BlockType.LISA)
                 {
                     update = b.HitBlock();
                 }
