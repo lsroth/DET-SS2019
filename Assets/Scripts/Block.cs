@@ -554,6 +554,30 @@ public class Block
 		} 
 		return false;
 	}
+
+	// public bool isCloseTo(BlockType b){
+	// 	Vector3[] closeBlocks = new Vector3[14];
+	// 	closeBlocks[0] = new Vector3((int)position.x,(int)position.y,(int)position.z+1);
+	// 	closeBlocks[1] = new Vector3((int)position.x-1,(int)position.y-1,(int)position.z+1);
+	// 	closeBlocks[2] = new Vector3((int)position.x,(int)position.y+1,(int)position.z+1);
+	// 	closeBlocks[3] = new Vector3((int)position.x+1,(int)position.y,(int)position.z);
+	// 	closeBlocks[4] = new Vector3((int)position.x+1,(int)position.y,(int)position.z+1);
+	// 	closeBlocks[5] = new Vector3((int)position.x+1,(int)position.y+1,(int)position.z);
+	// 	closeBlocks[6] = new Vector3((int)position.x+1,(int)position.y+1,(int)position.z+1);
+	// 	closeBlocks[7] = new Vector3((int)position.x,(int)position.y,(int)position.z-1);
+	// 	closeBlocks[9] = new Vector3((int)position.x,(int)position.y-1,(int)position.z-1);
+	// 	closeBlocks[10] = new Vector3((int)position.x-1,(int)position.y,(int)position.z);
+	// 	closeBlocks[11] = new Vector3((int)position.x-1,(int)position.y,(int)position.z-1);
+	// 	closeBlocks[12] = new Vector3((int)position.x-1,(int)position.y-1,(int)position.z);
+	// 	closeBlocks[13] = new Vector3((int)position.x-1,(int)position.y-1,(int)position.z-1);
+	// 	for (int i = 0; i<14; i++){
+	// 		if(GetBlockType(closeBlocks[i].x,closeBlocks[i].y,closeBlocks[i].z) == BlockType.b) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// }
+
     /// <summary>
     /// Determines if a side of a cube is to be drawn as a mesh or not, depending on having a solid neighbour or not. If a block is of type AIR, no quads are being created.
     /// </summary>

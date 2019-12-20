@@ -159,36 +159,52 @@ public class Chunk
                     if (worldY == -100)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
                                         chunk.gameObject, this);
-					else if (worldY == surfaceHeight) {
+                    else if (worldY == surfaceHeight)
+                        chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+					else if(worldY == surfaceHeight+1){
 						if (worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
 						} else if(worldY < 106 && Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
 							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
-							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE ||
+									chunkData[x,y,z].GetBlockType(x-2,y,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE ||
+									chunkData[x,y,z].GetBlockType(x,y,z-2) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE ||
+									chunkData[x,y,z].GetBlockType(x+2,y,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
+							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE ||
+									chunkData[x,y,z].GetBlockType(x,y,z+2) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
 						} else {
-							chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
 						}
-					}
-					else if ((worldY == surfaceHeight+1 || worldY == surfaceHeight+2)
-					 && worldX == World.signPos.x && worldZ == World.signPos.z){
-						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+					} else if (worldY == surfaceHeight+2) {
+						if(worldX == World.signPos.x && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+						} else if(worldY < 106 && Utils.fBM3D(worldX, worldY-1, worldZ, 0.4f, 4) < 0.4f) {
+							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
+							if( chunkData[x,y,z].GetBlockType(x-1,y-1,z) == Block.BlockType.CACTUSBASE) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y-1,z-1) == Block.BlockType.CACTUSBASE) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
+							};
+							if( chunkData[x,y,z].GetBlockType(x+1,y-1,z) == Block.BlockType.CACTUSBASE) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
+							};
+							if( chunkData[x,y,z].GetBlockType(x,y-1,z+1) == Block.BlockType.CACTUSBASE) {
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
+							};
+						} else {
+							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
+						}
 					} else if(worldY == surfaceHeight+3){
 						if(worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
@@ -201,35 +217,32 @@ public class Chunk
 											chunk.gameObject, this);
 						}
 					}
-                    else if (worldY <= surfaceHeight)
-                    {
-                        chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
-                    }
 
                     // Place water blocks below specified height 
                     else if (worldY < Utils.startHeightMountains-2.9) {
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);
-						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.GRASS);
 						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND || chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
+						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
 						};
-
-					}
+					} else if (worldY <= surfaceHeight)
+                        chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+					
                     // Place air blocks
                     else
                     {
