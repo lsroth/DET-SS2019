@@ -153,50 +153,19 @@ public class Chunk
 					}
 
                     int surfaceHeight = Utils.GenerateHeightMountains(worldX, worldZ);
-                    //               if(surfaceHeight < 106)
-                    //               {
-                    //                   surfaceHeight = Utils.GenerateHeight(worldX, worldZ);
-                    //               }
+					//int waterHeight = Utils.GenerateWaterHeight(worldX,worldZ);
 
                     // Place bedrock at height 0
-                    if (worldY == 0)
+                    if (worldY == -100)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
                                         chunk.gameObject, this);
-                    // Place Diamond, Redstone or Stone at certain heights and probabilities
-                    //else if(worldY <= Utils.GenerateStoneHeight(worldX,worldZ))
-                    //{
-                    //	if(Utils.fBM3D(worldX, worldY, worldZ, 0.01f, 2) < 0.4f && worldY < 40)
-                    //		chunkData[x,y,z] = new Block(Block.BlockType.DIAMOND, pos, 
-                    //	                chunk.gameObject, this);
-                    //	else if(Utils.fBM3D(worldX, worldY, worldZ, 0.03f, 3) < 0.41f && worldY < 20)
-                    //		chunkData[x,y,z] = new Block(Block.BlockType.REDSTONE, pos, 
-                    //	                chunk.gameObject, this);
-                    //	else
-                    //		chunkData[x,y,z] = new Block(Block.BlockType.STONE, pos, 
-                    //	                chunk.gameObject, this);
-                    //}
-                    //               // Place trunks of a tree or grass blocks on the surface
-                    //else if(worldY == surfaceHeight)
-                    //{
-                    //	if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 2) < 0.4f)
-                    //		chunkData[x,y,z] = new Block(Block.BlockType.WOODBASE, pos, 
-                    //	                chunk.gameObject, this);
-                    //	else
-                    //		chunkData[x,y,z] = new Block(Block.BlockType.GRASS, pos, 
-                    //	                chunk.gameObject, this);
-                    //}
-                    //               // Place dirt blocks
-                    //else if(worldY < surfaceHeight)
-                    //	chunkData[x,y,z] = new Block(Block.BlockType.DIRT, pos, 
-                    //	                chunk.gameObject, this);
 					else if (worldY == surfaceHeight) {
-						chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
-					}
-					if(worldY < 106 && worldY == surfaceHeight){
-						if(Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
+						if (worldX == World.signPos.x && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+						} else if(worldY < 106 && Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
 							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
 							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE) {
-							chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
+								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
 							if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
@@ -213,16 +182,31 @@ public class Chunk
 							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE) {
 								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
 							};
-						}
-						else {
+						} else {
 							chunkData[x,y,z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+						}
+					}
+					else if ((worldY == surfaceHeight+1 || worldY == surfaceHeight+2)
+					 && worldX == World.signPos.x && worldZ == World.signPos.z){
+						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+					} else if(worldY == surfaceHeight+3){
+						if(worldX == World.signPos.x && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
+						} else if(worldX == World.signPos.x-1 && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNLEFT, pos, chunk.gameObject, this);
+						} else if(worldX == World.signPos.x+1 && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject, this);
+						} else {
+							chunkData[x, y, z] = new Block(Block.BlockType.AIR, pos,
+											chunk.gameObject, this);
 						}
 					}
                     else if (worldY <= surfaceHeight)
                     {
                         chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
                     }
-                    // Place water blocks below height 65
+
+                    // Place water blocks below specified height 
                     else if (worldY < Utils.startHeightMountains-2.9) {
                         chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
                                         fluid.gameObject, this);

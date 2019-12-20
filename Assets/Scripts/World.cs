@@ -9,7 +9,7 @@ using Realtime.Messaging.Internal;
 /// </summary>
 public class World : MonoBehaviour
 {
-	public int[] seeds = new int[] {-360,-100,4,100,255,500,1000,1243,1370,1050,10400};
+	public int[] seeds = new int[] {-360,-100,100,255,500,1000,1243,1370,1050,10400};
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
@@ -19,6 +19,7 @@ public class World : MonoBehaviour
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
+	public static Vector3 signPos;
 
 	public static bool firstbuild = true;
 
@@ -215,15 +216,21 @@ public class World : MonoBehaviour
 	void Start ()
     {	
 		Random.seed = System.Environment.TickCount;
-		int seed = (int) this.seeds[Random.Range(0,seeds.Length-1)];
+		int seedStartPoint = (int) this.seeds[Random.Range(0,seeds.Length-1)];
 		
 		//Debug.Log(Random.Range(0,seeds.Length));
-		Debug.Log(seed);
 
-		Random.InitState(seed);
-		int rndx = (int) Random.Range(-100f, 100f);
-		int rndz = (int) Random.Range(-100f, 100f);
-		Vector3 ppos = player.transform.position + new Vector3(rndx,0,rndz);
+		Random.InitState(seedStartPoint);
+		Vector2 rnd;
+		rnd.x = (int) Random.Range(-100f, 100f);
+		rnd.y = (int) Random.Range(-100f, 100f);
+		Vector3 test = new Vector3(seedStartPoint,rnd.x,rnd.y);
+		Debug.Log(test);
+		Vector3 ppos = player.transform.position + new Vector3(rnd.x,0,rnd.y);
+
+		Random.seed = System.Environment.TickCount;
+		signPos = new Vector3(ppos.x+(int)Random.Range(-10,10), 0, ppos.z + (int)Random.Range(-10,10));
+		Debug.Log(signPos);
 
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
