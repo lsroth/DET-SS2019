@@ -205,17 +205,9 @@ public class Chunk
 						} else {
 							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
 						}
-					} else if(worldY == surfaceHeight+3){
-						if(worldX == World.signPos.x && worldZ == World.signPos.z){
+					} else if(worldY == surfaceHeight+3 && worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
-						} else if(worldX == World.signPos.x-1 && worldZ == World.signPos.z){
-							chunkData[x,y,z] = new Block(Block.BlockType.SIGNLEFT, pos, chunk.gameObject, this);
-						} else if(worldX == World.signPos.x+1 && worldZ == World.signPos.z){
-							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject, this);
-						} else {
-							chunkData[x, y, z] = new Block(Block.BlockType.AIR, pos,
-											chunk.gameObject, this);
-						}
+					
 					}
 
                     // Place water blocks below specified height 
@@ -240,9 +232,9 @@ public class Chunk
 						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
 							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
 						};
-					} else if (worldY <= surfaceHeight)
+					} else if (worldY <= surfaceHeight){
                         chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
-					
+					}
                     // Place air blocks
                     else
                     {
@@ -250,6 +242,14 @@ public class Chunk
                                         chunk.gameObject, this);
                     }
 
+					if (worldY == Utils.GenerateHeightMountains(worldX+1,worldZ)+3 
+						&& worldX == World.signPos.x-1 && worldZ == World.signPos.z) {
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNLEFT, pos, chunk.gameObject, this);
+					} else if(worldY == Utils.GenerateHeightMountains(worldX-1,worldZ)+3 
+						&& worldX == World.signPos.x+1 && worldZ == World.signPos.z){
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject, this);
+					}
+					
                     // Create caves
 					// if(chunkData[x,y,z].blockType != Block.BlockType.WATER && Utils.fBM3D(worldX, worldY, worldZ, 0.1f, 3) < 0.42f)
 					// 	chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, 
