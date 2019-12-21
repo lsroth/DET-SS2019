@@ -156,32 +156,16 @@ public class Chunk
 					//int waterHeight = Utils.GenerateWaterHeight(worldX,worldZ);
 
                     // Place bedrock at height 0
-                    if (worldY == -100)
+                    if (worldY == 90)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
-                                        chunk.gameObject, this);
+							chunk.gameObject, this);
                     else if (worldY == surfaceHeight)
-                        chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+                        this.setSand(x,y,z,pos);
 					else if(worldY == surfaceHeight+1){
 						if (worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
 						} else if(worldY < 106 && Utils.fBM3D(worldX, worldY, worldZ, 0.4f, 4) < 0.4f) {
-							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
-							if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.CACTUSBASE ||
-									chunkData[x,y,z].GetBlockType(x-2,y,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.CACTUSBASE ||
-									chunkData[x,y,z].GetBlockType(x,y,z-2) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
-							if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.CACTUSBASE ||
-									chunkData[x,y,z].GetBlockType(x+2,y,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.CACTUSBASE ||
-									chunkData[x,y,z].GetBlockType(x,y,z+2) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.SAND);
-							};
+							this.setCactus(x,y,z,pos);
 						} else {
 							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
 						}
@@ -189,58 +173,21 @@ public class Chunk
 						if(worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
 						} else if(worldY < 106 && Utils.fBM3D(worldX, worldY-1, worldZ, 0.4f, 4) < 0.4f) {
-							chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
-							if( chunkData[x,y,z].GetBlockType(x-1,y-1,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y-1,z-1) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
-							};
-							if( chunkData[x,y,z].GetBlockType(x+1,y-1,z) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
-							};
-							if( chunkData[x,y,z].GetBlockType(x,y-1,z+1) == Block.BlockType.CACTUSBASE) {
-								chunkData[x,y,z].GetBlock(x,y,z).SetType(Block.BlockType.AIR);
-							};
+							this.setCactus(x,y,z,pos);
 						} else {
-							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
+							this.setAir(x,y,z,pos);
 						}
 					} else if(worldY == surfaceHeight+3 && worldX == World.signPos.x && worldZ == World.signPos.z){
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
-					
-					}
-
-                    // Place water blocks below specified height 
-                    else if (worldY < Utils.startHeightMountains-2.9) {
-                        chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
-                                        fluid.gameObject, this);
-						if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
-						};
-						if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
-						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
-						};
-						if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
-						};
-						if( chunkData[x,y,z].GetBlockType(x,y+1,z) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y+1,z).SetType(Block.BlockType.GRASS);
-						};
-						if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
-							chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
-						};
 					} else if (worldY <= surfaceHeight){
-                        chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
-					}
-                    // Place air blocks
-                    else
-                    {
-                        chunkData[x, y, z] = new Block(Block.BlockType.AIR, pos,
-                                        chunk.gameObject, this);
+                        this.setSand(x,y,z,pos);
+					} else {
+						this.setAir(x,y,z,pos);
                     }
+
+                    if (worldY > surfaceHeight && worldY < Utils.startHeightMountains-2.9) {
+                        this.setWater(x,y,z,pos);
+					} 
 
 					if (worldY == Utils.GenerateHeightMountains(worldX+1,worldZ)+3 
 						&& worldX == World.signPos.x-1 && worldZ == World.signPos.z) {
@@ -260,6 +207,54 @@ public class Chunk
 
 	}
 
+	private void setWater(int x, int y, int z, Vector3 pos){
+		chunkData[x, y, z] = new Block(Block.BlockType.WATER, pos,
+				fluid.gameObject, this);
+		if( chunkData[x,y,z].GetBlockType(x-1,y,z) == Block.BlockType.SAND) {
+			chunkData[x,y,z].GetBlock(x-1,y,z).SetType(Block.BlockType.GRASS);
+		};
+		if( chunkData[x,y,z].GetBlockType(x,y-1,z) == Block.BlockType.SAND) {
+			chunkData[x,y,z].GetBlock(x,y-1,z).SetType(Block.BlockType.GRASS);
+		};
+		if( chunkData[x,y,z].GetBlockType(x,y,z-1) == Block.BlockType.SAND) {
+			chunkData[x,y,z].GetBlock(x,y,z-1).SetType(Block.BlockType.GRASS);
+		};
+		if( chunkData[x,y,z].GetBlockType(x+1,y,z) == Block.BlockType.SAND) {
+			chunkData[x,y,z].GetBlock(x+1,y,z).SetType(Block.BlockType.GRASS);
+		};
+		if( chunkData[x,y,z].GetBlockType(x,y+1,z) != Block.BlockType.AIR) {
+			this.setAir(x,y,z,pos);
+		};
+		if( chunkData[x,y,z].GetBlockType(x,y,z+1) == Block.BlockType.SAND) {
+			chunkData[x,y,z].GetBlock(x,y,z+1).SetType(Block.BlockType.GRASS);
+		};
+	}
+
+	private void setCactus(int x, int y, int z, Vector3 pos){
+		chunkData[x,y,z] = new Block(Block.BlockType.CACTUSBASE, pos, chunk.gameObject, this);
+		for(int height = 1; height <3; height++){
+			if( chunkData[x,y,z].GetBlockType(x-1,y-height,z) == Block.BlockType.CACTUSBASE) {
+				this.setAir(x,y,z,pos);
+			};
+			if( chunkData[x,y,z].GetBlockType(x,y-height,z-1) == Block.BlockType.CACTUSBASE) {
+				this.setAir(x,y,z,pos);
+			};
+			if( chunkData[x,y,z].GetBlockType(x+1,y-height,z) == Block.BlockType.CACTUSBASE) {
+				this.setAir(x,y,z,pos);
+			};
+			if( chunkData[x,y,z].GetBlockType(x,y-height,z+1) == Block.BlockType.CACTUSBASE) {
+				this.setAir(x,y,z,pos);
+			};
+		}
+	}
+
+	private void setSand(int x, int y, int z, Vector3 pos){
+		chunkData[x, y, z] = new Block(Block.BlockType.SAND, pos, chunk.gameObject, this);
+	}
+
+	private void setAir(int x, int y, int z, Vector3 pos){
+		chunkData[x, y, z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject, this);
+	}
     /// <summary>
     /// Redraws this chunk by destroying all mesh and collision components and then creating new ones.
     /// </summary>
@@ -280,30 +275,30 @@ public class Chunk
     /// </summary>
 	public void DrawChunk()
 	{
-		if(!treesCreated)
-		{
-			for(int z = 0; z < World.chunkSize; z++)
-				for(int y = 0; y < World.chunkSize; y++)
-					for(int x = 0; x < World.chunkSize; x++)
-					{
-						 // Do not build a cactus if there is no cactusbase
-						if(chunkData[x,y,z].blockType == Block.BlockType.CACTUSBASE) {
-							Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
-							if(t != null ){
-								t.SetType(Block.BlockType.CACTUS);
-								chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
-							}
-						}
-						BuildTrees(chunkData[x,y,z],x,y,z);
-						// if(trunk.blockType == Block.BlockType.CACTUS) {
-						// 	Block t = trunk.GetBlock(x, y+1, z);
-						// 	if (t != null) {
-						// 		t.SetType(Block.BlockType.CACTUS);
-						// 	}
-						// }
-					}
-			treesCreated = true;		
-		}
+		// if(!treesCreated)
+		// {
+		// 	for(int z = 0; z < World.chunkSize; z++)
+		// 		for(int y = 0; y < World.chunkSize; y++)
+		// 			for(int x = 0; x < World.chunkSize; x++)
+		// 			{
+		// 				 // Do not build a cactus if there is no cactusbase
+		// 				if(chunkData[x,y,z].blockType == Block.BlockType.CACTUSBASE) {
+		// 					Block t = chunkData[x,y,z].GetBlock(x, y+1, z);
+		// 					if(t != null ){
+		// 						t.SetType(Block.BlockType.CACTUS);
+		// 						chunkData[x,y,z].SetType(Block.BlockType.CACTUS);
+		// 					}
+		// 				}
+		// 				BuildTrees(chunkData[x,y,z],x,y,z);
+		// 				// if(trunk.blockType == Block.BlockType.CACTUS) {
+		// 				// 	Block t = trunk.GetBlock(x, y+1, z);
+		// 				// 	if (t != null) {
+		// 				// 		t.SetType(Block.BlockType.CACTUS);
+		// 				// 	}
+		// 				// }
+		// 			}
+		// 	treesCreated = true;		
+		// }
 		for(int z = 0; z < World.chunkSize; z++)
 			for(int y = 0; y < World.chunkSize; y++)
 				for(int x = 0; x < World.chunkSize; x++)
