@@ -144,6 +144,8 @@ public class Chunk
 					int worldY = (int)(y + chunk.transform.position.y);
 					int worldZ = (int)(z + chunk.transform.position.z);
 
+					float signHeight = Utils.GenerateHeightMountains(World.signPos.x,World.signPos.z);
+
                     // Load chunk from file
 					if(dataFromFile)
 					{
@@ -185,21 +187,28 @@ public class Chunk
 						setWater(x,y,z,pos);
 					else 
                         setAir(x,y,z,pos);
-
-					if(worldY == surfaceHeight+1 && worldX == World.signPos.x && worldZ == World.signPos.z)
+						
+					//Set Sign Middle
+					if(worldY <= surfaceHeight+1 && worldX == World.signPos.x && worldZ == World.signPos.z)
 						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
 					else if (worldY == surfaceHeight+2 && worldX == World.signPos.x && worldZ == World.signPos.z)
 						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
 					else if (worldY == surfaceHeight+3 && worldX == World.signPos.x && worldZ == World.signPos.z)
 						chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
-					
+					//set sign left&&right
 					if(worldY == Utils.GenerateHeightMountains(worldX+1,worldZ)+3
 						&& worldX == World.signPos.x-1 && worldZ == World.signPos.z)
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNLEFT, pos, chunk.gameObject,this);
 					else if(worldY == Utils.GenerateHeightMountains(worldX-1,worldZ)+3
 						&& worldX == World.signPos.x+1 && worldZ == World.signPos.z)
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject,this);
-
+					else if((worldX != World.signPos.x || worldZ != World.signPos.z) 
+						&& Vector2.Distance(new Vector2(worldX,worldZ), new Vector2(World.signPos.x,World.signPos.z))<3){
+						if(worldY > signHeight)		//höher als Signbase
+							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject,this);
+						else if(worldY <= surfaceHeight && worldY <= signHeight)
+							chunkData[x,y,z] = new Block(Block.BlockType.HELGE, pos, chunk.gameObject,this);
+					}
 					status = ChunkStatus.DRAW;
 				}
 

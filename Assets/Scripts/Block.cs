@@ -77,11 +77,8 @@ public class Block
                                 new Vector2(0.9375f,0.5625f), new Vector2(1.0f,0.5625f)},
 		/*24 SIGN SIDE */	{ new Vector2(0.25f, 0.9375f), new Vector2(0.3125f,0.9375f),
                                 new Vector2(0.25f,1.0f), new Vector2(0.3125f,1.0f)},
-						
-
-		
-		// /*DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
-		// 						new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
+		/*25 DIRT*/			{new Vector2( 0.125f, 0.9375f ), new Vector2( 0.1875f, 0.9375f),
+								new Vector2( 0.125f, 1.0f ),new Vector2( 0.1875f, 1.0f )},
 		// /*LEAVES*/			{ new Vector2(0.0625f,0.375f),  new Vector2(0.125f,0.375f),
  		// 						new Vector2(0.0625f,0.4375f), new Vector2(0.125f,0.4375f)},
  		// /*WOOD*/			{ new Vector2(0.375f,0.625f),  new Vector2(0.4375f,0.625f),
@@ -302,7 +299,13 @@ public class Block
             uv01 = blockUVs[(int)(blockType + 5), 2];
             uv11 = blockUVs[(int)(blockType + 5), 3];
 
-        } else if (blockType == BlockType.HELGE || blockType == BlockType.CACTUSBASE)
+        } else if (blockType == BlockType.HELGE){
+
+            uv00 = blockUVs[25, 0];
+            uv10 = blockUVs[25, 1];
+            uv01 = blockUVs[25, 2];
+            uv11 = blockUVs[25, 3];
+		} else if (blockType == BlockType.CACTUSBASE)
 		{
             uv00 = blockUVs[6, 0];
             uv10 = blockUVs[6, 1];
