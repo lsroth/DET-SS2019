@@ -203,7 +203,7 @@ public class Chunk
 						&& worldX == World.signPos.x+1 && worldZ == World.signPos.z)
 							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject,this);
 					else if((worldX != World.signPos.x || worldZ != World.signPos.z) 
-						&& Vector2.Distance(new Vector2(worldX,worldZ), new Vector2(World.signPos.x,World.signPos.z))<3){
+						&& Vector2.Distance(new Vector2(worldX,worldZ), new Vector2(World.signPos.x,World.signPos.z))<4){
 						if(worldY > signHeight)		//höher als Signbase
 							chunkData[x,y,z] = new Block(Block.BlockType.AIR, pos, chunk.gameObject,this);
 						else if(worldY <= surfaceHeight && worldY <= signHeight)
