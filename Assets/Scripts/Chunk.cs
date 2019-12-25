@@ -193,6 +193,12 @@ public class Chunk
 					else if (worldY == surfaceHeight+3 && worldX == World.signPos.x && worldZ == World.signPos.z)
 						chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
 					
+					if(worldY == Utils.GenerateHeightMountains(worldX+1,worldZ)+3
+						&& worldX == World.signPos.x-1 && worldZ == World.signPos.z)
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNLEFT, pos, chunk.gameObject,this);
+					else if(worldY == Utils.GenerateHeightMountains(worldX-1,worldZ)+3
+						&& worldX == World.signPos.x+1 && worldZ == World.signPos.z)
+							chunkData[x,y,z] = new Block(Block.BlockType.SIGNRIGHT, pos, chunk.gameObject,this);
 
 					status = ChunkStatus.DRAW;
 				}

@@ -19,6 +19,7 @@ public class World : MonoBehaviour
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
 	public static float cactusSeed;
+	public static Vector3 signPos;
 
 	public static bool firstbuild = true;
 
@@ -221,7 +222,7 @@ public class World : MonoBehaviour
 
 	public void setCactusSeed(){
 		Random.seed = System.Environment.TickCount;
-		float cs = (int) Random.Range(0.0f,6.0f);
+		float cs = (int) Random.Range(1.0f,6.0f);
 		cactusSeed = cs/10;
 		Debug.Log(cactusSeed);
 	}
@@ -230,14 +231,23 @@ public class World : MonoBehaviour
 		return cactusSeed;
 	}
 
+	public void setSignPos(Vector3 ppos){
+		Random.seed = System.Environment.TickCount;
+		signPos = new Vector3(ppos.x+(int)Random.Range(-10,10), 0, ppos.z + (int)Random.Range(-10,10));
+		Debug.Log(signPos);
+	}
+
 	/// <summary>
     /// Unity lifecycle start method. Initializes the world and its first chunk and triggers the building of further chunks.
     /// Player is disabled during Start() to avoid him falling through the floor. Chunks are built using coroutines.
     /// </summary>
 	void Start ()
     {	
+		
 		setCactusSeed();
 		Vector3 ppos = createPosition();
+		setSignPos(ppos);
+
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
 											ppos.z);
