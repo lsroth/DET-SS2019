@@ -233,7 +233,7 @@ public class World : MonoBehaviour
 
 	public void setSignPos(Vector3 ppos){
 		Random.seed = System.Environment.TickCount;
-		signPos = new Vector3(ppos.x+(int)Random.Range(-10,10), 0, ppos.z + (int)Random.Range(-10,10));
+		signPos = new Vector3(ppos.x+(int)Random.Range(-100,100), 0, ppos.z + (int)Random.Range(-10,10));
 		Debug.Log(signPos);
 	}
 
