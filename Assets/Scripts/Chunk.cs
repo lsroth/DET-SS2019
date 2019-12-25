@@ -177,8 +177,7 @@ public class Chunk
 							}
 						else
 							setAir(x,y,z,pos);
-					} 
-					else if (worldY <= surfaceHeight)
+					} else if (worldY <= surfaceHeight)
                         setSand(x,y,z,pos); 
 
                     // Place water blocks below height 65
@@ -186,6 +185,14 @@ public class Chunk
 						setWater(x,y,z,pos);
 					else 
                         setAir(x,y,z,pos);
+
+					if(worldY == surfaceHeight+1 && worldX == World.signPos.x && worldZ == World.signPos.z)
+						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+					else if (worldY == surfaceHeight+2 && worldX == World.signPos.x && worldZ == World.signPos.z)
+						chunkData[x,y,z] = new Block(Block.BlockType.SIGNBASE, pos, chunk.gameObject, this);
+					else if (worldY == surfaceHeight+3 && worldX == World.signPos.x && worldZ == World.signPos.z)
+						chunkData[x,y,z] = new Block(Block.BlockType.SIGNMIDDLE, pos, chunk.gameObject, this);
+					
 
 					status = ChunkStatus.DRAW;
 				}
