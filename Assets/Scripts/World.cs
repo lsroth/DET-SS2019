@@ -112,6 +112,16 @@ public class World : MonoBehaviour
 		}
 	}
 
+	IEnumerator BuildWorld(int x, int z, int radius){
+		for(int y = 12; y<=columnHeight+5; y++){
+			for(int i = -radius; i<= radius; i++){
+				for(int j = -radius; j<=radius; j++){
+					BuildChunkAt(i+x,y,j+z);
+					yield return null;
+				}
+			}
+		}
+	}
     /// <summary>
     /// Coroutine to to recursively build chunks of the world depending on some location and a radius.
     /// </summary>
@@ -124,7 +134,7 @@ public class World : MonoBehaviour
 	IEnumerator BuildRecursiveWorld(int x, int y, int z, int startrad, int rad)
 	{
 		int nextrad = rad-1;
-		if(rad <= 0 || y < 0 || y > columnHeight) yield break;
+		if(rad <= 0 || y < 10 || y > columnHeight+10) yield break;
 		// Build chunk front
 		BuildChunkAt(x,y,z+1);
 		queue.Run(BuildRecursiveWorld(x,y,z+1,rad,nextrad));
@@ -234,7 +244,6 @@ public class World : MonoBehaviour
 	public void setSignPos(Vector3 ppos){
 		Random.seed = System.Environment.TickCount;
 		signPos = new Vector3(ppos.x+(int)Random.Range(-100,100), 0, ppos.z + (int)Random.Range(-10,10));
-		Debug.Log(signPos);
 	}
 
 	/// <summary>
@@ -272,6 +281,12 @@ public class World : MonoBehaviour
 		queue.Run(BuildRecursiveWorld((int)(player.transform.position.x/chunkSize),
 											(int)(player.transform.position.y/chunkSize),
 											(int)(player.transform.position.z/chunkSize),radius,radius));
+
+		// use buildworld with radius 15 instead of buildrecursivworld to build the whole world at once 
+		// (takes a while and isnt working yet for every seed)
+
+		// queue.Run(BuildWorld((int)(player.transform.position.x/chunkSize),
+		// 									(int)(player.transform.position.z/chunkSize),radius));
 	}
 	
     /// <summary>
@@ -297,6 +312,6 @@ public class World : MonoBehaviour
 
         // Draw new chunks and removed deprecated chunks
 		queue.Run(DrawChunks());
-		queue.Run(RemoveOldChunks());
+		//queue.Run(RemoveOldChunks());
 	}
 }
