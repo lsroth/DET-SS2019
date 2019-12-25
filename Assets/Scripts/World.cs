@@ -9,7 +9,6 @@ using Realtime.Messaging.Internal;
 /// </summary>
 public class World : MonoBehaviour
 {
-	public int[] seeds = new int[] {-360,-100,4,100,255,500,1000,1243,1370,1050,10400};
 	public GameObject player;
 	public Material textureAtlas;
 	public Material fluidTexture;
@@ -19,6 +18,7 @@ public class World : MonoBehaviour
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
+	public static float cactusSeed;
 
 	public static bool firstbuild = true;
 
@@ -208,23 +208,36 @@ public class World : MonoBehaviour
 											(int)(player.transform.position.z/chunkSize), radius, radius));
 	}
 
+	private Vector3 createPosition(){
+		int[] seeds = new int[] {-360,-100,4,100,255,500,1000,1243,1370,1050,10400};
+		Random.seed = System.Environment.TickCount;
+		int seed = (int) seeds[Random.Range(0,seeds.Length-1)];
+		Random.InitState(seed);
+		int rndx = (int) Random.Range(-100f, 100f);
+		int rndz = (int) Random.Range(-100f, 100f);
+		Vector3 ppos = player.transform.position + new Vector3(rndx,0,rndz);
+		return ppos;
+	}
+
+	public void setCactusSeed(){
+		Random.seed = System.Environment.TickCount;
+		float cs = (int) Random.Range(0.0f,6.0f);
+		cactusSeed = cs/10;
+		Debug.Log(cactusSeed);
+	}
+
+	public static float getCactusSeed(){
+		return cactusSeed;
+	}
+
 	/// <summary>
     /// Unity lifecycle start method. Initializes the world and its first chunk and triggers the building of further chunks.
     /// Player is disabled during Start() to avoid him falling through the floor. Chunks are built using coroutines.
     /// </summary>
 	void Start ()
     {	
-		Random.seed = System.Environment.TickCount;
-		int seed = (int) this.seeds[Random.Range(0,seeds.Length-1)];
-		
-		//Debug.Log(Random.Range(0,seeds.Length));
-		Debug.Log(seed);
-
-		Random.InitState(seed);
-		int rndx = (int) Random.Range(-100f, 100f);
-		int rndz = (int) Random.Range(-100f, 100f);
-		Vector3 ppos = player.transform.position + new Vector3(rndx,0,rndz);
-
+		setCactusSeed();
+		Vector3 ppos = createPosition();
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
 											ppos.z);
