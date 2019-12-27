@@ -185,8 +185,9 @@ public class Chunk
                     // Place water blocks below height 65
                     else if (worldY < Utils.startHeightMountains-2.9)
 						setWater(x,y,z,pos);
-					// else if (worldY>surfaceHeight && worldY<=waterHeight)
+					// else if (worldY>=surfaceHeight && worldY<waterHeight && Vector2.Distance(new Vector2(worldX,worldZ), World.waterPos)))
 					// 	setWater(x,y,z,pos);
+						
 					else 
                         setAir(x,y,z,pos);
 						

@@ -14,14 +14,14 @@ public class World : MonoBehaviour
 	public Material fluidTexture;
 	public static int columnHeight = 16;
 	public static int chunkSize = 8;
-	public static int radius = 4; //changed from 3 to 4 to load more at the same time
+	public static int radius = 8; //changed from 3 to 4 to load more at the same time
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
 	public static float cactusSeed;
 	public static int positionSeed;
 	public static Vector3 signPos;
-	public static Vector2 levelID;
+	public static Vector4 levelID;
 
 	public static bool firstbuild = true;
 
@@ -222,8 +222,7 @@ public class World : MonoBehaviour
 	}
 
 	private Vector3 createPosition(){
-		//int[] seeds = new int[] {-360,-100,4,100,255,500,1000,1243,1370,1050,10400};
-		int[] seeds = new int[] {-360,1000,1050};
+		int[] seeds = new int[] {100,1000,1243,1370,10750,15300};
 		Random.seed = System.Environment.TickCount;
 		positionSeed = (int) seeds[Random.Range(0,seeds.Length-1)];
 		Random.InitState(positionSeed);
@@ -245,7 +244,7 @@ public class World : MonoBehaviour
 
 	public void setSignPos(Vector3 ppos){
 		Random.seed = System.Environment.TickCount;
-		signPos = new Vector3(ppos.x+(int)Random.Range(-100,100), 0, ppos.z + (int)Random.Range(-10,10));
+		signPos = new Vector3(ppos.x+(int)Random.Range(-radius*chunkSize,radius*chunkSize), 0, ppos.z + (int)Random.Range(-radius*chunkSize,radius*chunkSize));
 	}
 
 	/// <summary>
@@ -258,7 +257,7 @@ public class World : MonoBehaviour
 		setCactusSeed();
 		Vector3 ppos = createPosition();
 		setSignPos(ppos);
-		levelID = new Vector2(positionSeed,cactusSeed);
+		levelID = new Vector4(positionSeed,cactusSeed,signPos.x,signPos.z);
 		Debug.Log(levelID);
 		
 		player.transform.position = new Vector3(ppos.x,
@@ -282,15 +281,15 @@ public class World : MonoBehaviour
 		queue.Run(DrawChunks());
 
 		// Create further chunks
-		queue.Run(BuildRecursiveWorld((int)(player.transform.position.x/chunkSize),
-											(int)(player.transform.position.y/chunkSize),
-											(int)(player.transform.position.z/chunkSize),radius,radius));
+		// queue.Run(BuildRecursiveWorld((int)(player.transform.position.x/chunkSize),
+		// 									(int)(player.transform.position.y/chunkSize),
+		// 									(int)(player.transform.position.z/chunkSize),radius,radius));
 
 		// use buildworld with radius 15 instead of buildrecursivworld to build the whole world at once 
 		// (takes a while and isnt working yet for every seed)
 
-		// queue.Run(BuildWorld((int)(player.transform.position.x/chunkSize),
-		// 									(int)(player.transform.position.z/chunkSize),radius));
+		queue.Run(BuildWorld((int)(player.transform.position.x/chunkSize),
+											(int)(player.transform.position.z/chunkSize),radius));
 	}
 	
     /// <summary>
@@ -304,7 +303,7 @@ public class World : MonoBehaviour
 		if(movement.magnitude > chunkSize )
 		{
 			lastbuildPos = player.transform.position;
-			BuildNearPlayer();
+			//BuildNearPlayer();
 		}
 
         // Activate the player's GameObject
