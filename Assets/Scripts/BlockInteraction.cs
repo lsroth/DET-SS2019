@@ -80,7 +80,7 @@ public class BlockInteraction : MonoBehaviour
                 {
                     update = b.HitBlock();
                 }
-                else
+                else if(Input.GetMouseButtonDown(1))
                 {
                     update = b.BuildBlock(buildtype);
                 }
