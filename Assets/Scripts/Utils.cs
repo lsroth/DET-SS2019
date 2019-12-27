@@ -43,7 +43,12 @@ public class Utils
         }
         return (int)height;
     }
-
+    public static int GenerateHeightWater(float x, float z)
+    {
+        float maxHeight = startHeightMountains+4;
+        float height = Map(100, maxHeight, 0, 1, fBM(x * 0.9f, z * 0.9f, 5, persistenceMountains));
+        return (int)height;
+    }
     // TODO: watch tutorial again -> for cactus?
 
     /// <summary>

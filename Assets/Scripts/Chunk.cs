@@ -144,8 +144,6 @@ public class Chunk
 					int worldY = (int)(y + chunk.transform.position.y);
 					int worldZ = (int)(z + chunk.transform.position.z);
 
-					float signHeight = Utils.GenerateHeightMountains(World.signPos.x,World.signPos.z);
-
                     // Load chunk from file
 					if(dataFromFile)
 					{
@@ -155,6 +153,8 @@ public class Chunk
 					}
 
                     int surfaceHeight = Utils.GenerateHeightMountains(worldX, worldZ);
+					float signHeight = Utils.GenerateHeightMountains(World.signPos.x,World.signPos.z);
+					int waterHeight = Utils.GenerateHeightWater(worldX,worldZ);
 
                     if (worldY == 100)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
@@ -185,6 +185,8 @@ public class Chunk
                     // Place water blocks below height 65
                     else if (worldY < Utils.startHeightMountains-2.9)
 						setWater(x,y,z,pos);
+					// else if (worldY>surfaceHeight && worldY<=waterHeight)
+					// 	setWater(x,y,z,pos);
 					else 
                         setAir(x,y,z,pos);
 						
