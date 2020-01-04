@@ -21,7 +21,7 @@ public class World : MonoBehaviour
 	public static float cactusSeed;
 	public static int positionSeed;
 	public static Vector3 signPos;
-	public static Vector4 levelID;
+	public static int levelID;
 
 	public static bool firstbuild = true;
 
@@ -224,7 +224,8 @@ public class World : MonoBehaviour
 	private Vector3 createPosition(){
 		int[] seeds = new int[] {100,1000,1243,1370,10750,15300};
 		Random.seed = System.Environment.TickCount;
-		positionSeed = (int) seeds[Random.Range(0,seeds.Length-1)];
+		levelID = Random.Range(0,(seeds.Length*6)-1);
+		positionSeed = (int) seeds[levelID/6];
 		Random.InitState(positionSeed);
 		int rndx = (int) Random.Range(-100f, 100f);
 		int rndz = (int) Random.Range(-100f, 100f);
@@ -233,8 +234,7 @@ public class World : MonoBehaviour
 	}
 
 	public void setCactusSeed(){
-		Random.seed = System.Environment.TickCount;
-		float cs = (int) Random.Range(1.0f,6.0f);
+		float cs = (levelID%6)+1;
 		cactusSeed = cs/10;
 	}
 
@@ -243,7 +243,6 @@ public class World : MonoBehaviour
 	}
 
 	public void setSignPos(Vector3 ppos){
-		Random.seed = System.Environment.TickCount;
 		signPos = new Vector3(ppos.x+(int)Random.Range(-radius*chunkSize,radius*chunkSize), 0, ppos.z + (int)Random.Range(-radius*chunkSize,radius*chunkSize));
 	}
 
@@ -254,11 +253,11 @@ public class World : MonoBehaviour
 	void Start ()
     {	
 		
-		setCactusSeed();
 		Vector3 ppos = createPosition();
+		setCactusSeed();
 		setSignPos(ppos);
-		levelID = new Vector4(positionSeed,cactusSeed,signPos.x,signPos.z);
-		Debug.Log(levelID);
+		Vector4 level = new Vector4(positionSeed,cactusSeed,signPos.x,signPos.z);
+		Debug.Log("LevelID:" + levelID);
 		
 		player.transform.position = new Vector3(ppos.x,
 											Utils.GenerateHeightMountains(ppos.x,ppos.z) + 1,
