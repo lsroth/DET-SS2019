@@ -77,55 +77,56 @@ public class ChunkMB: MonoBehaviour
     /// <param name="strength"></param>
     /// <param name="maxSize"></param>
     /// <returns></returns>
-    //public IEnumerator Flow(Block b, Block.BlockType bt, int strength, int maxSize)
-    //{
+    public IEnumerator Flow(Block b, Block.BlockType bt, int strength, int maxSize)
+    {
     //    Reduce the strenth of the fluid block with each new block created(avoid infinite and exponentially growing number of fluid blocks)
 
-    //    if (maxSize <= 0) yield break;
-    //    if (b == null) yield break;
-    //    if (strength <= 0) yield break;
-    //    if (b.blockType != Block.BlockType.AIR) yield break;
-    //    b.SetType(bt);
-    //    b.currentHealth = strength;
-    //    b.owner.Redraw();
-    //    yield return new WaitForSeconds(1);
+        if (maxSize <= 0) yield break;
+        if (b == null) yield break;
+        if (strength <= 0) yield break;
+        if (b.blockType != Block.BlockType.AIR) yield break;
+        b.SetType(bt);
+        b.currentHealth = strength;
+        b.owner.Redraw();
+        yield return new WaitForSeconds(1);
 
-    //    int x = (int)b.position.x;
-    //    int y = (int)b.position.y;
-    //    int z = (int)b.position.z;
+        int x = (int)b.position.x;
+       int y = (int)b.position.y;
+       int z = (int)b.position.z;
 
-    //    Flow down if air block is beneath
-    //   Block below = b.GetBlock(x, y - 1, z);
-    //    if (below != null && below.blockType == Block.BlockType.AIR)
-    //    {
-    //        StartCoroutine(Flow(b.GetBlock(x, y - 1, z), bt, strength, --maxSize));
-    //        yield break;
-    //    }
-    //    else // Flow outward
-    //    {
-    //        --strength;
-    //        --maxSize;
-    //        Flow left
+       //Flow down if air block is beneath
+      Block below = b.GetBlock(x, y - 1, z);
+       if (below != null && below.blockType == Block.BlockType.AIR)
+       {
+           StartCoroutine(Flow(b.GetBlock(x, y - 1, z), bt, strength, --maxSize));
+           yield break;
+       }
+       else // Flow outward
+       {
+           --strength;
+           --maxSize;
 
-    //        World.queue.Run(Flow(b.GetBlock(x - 1, y, z), bt, strength, maxSize));
-    //        yield return new WaitForSeconds(1);
+           //Flow left
 
-    //        Flow right
+           World.queue.Run(Flow(b.GetBlock(x - 1, y, z), bt, strength, maxSize));
+           yield return new WaitForSeconds(1);
 
-    //        World.queue.Run(Flow(b.GetBlock(x + 1, y, z), bt, strength, maxSize));
-    //        yield return new WaitForSeconds(1);
+           //Flow right
 
-    //        Flow forward
+           World.queue.Run(Flow(b.GetBlock(x + 1, y, z), bt, strength, maxSize));
+           yield return new WaitForSeconds(1);
 
-    //        World.queue.Run(Flow(b.GetBlock(x, y, z + 1), bt, strength, maxSize));
-    //        yield return new WaitForSeconds(1);
+           //Flow forward
 
-    //        Flow back
+           World.queue.Run(Flow(b.GetBlock(x, y, z + 1), bt, strength, maxSize));
+           yield return new WaitForSeconds(1);
 
-    //        World.queue.Run(Flow(b.GetBlock(x, y, z - 1), bt, strength, maxSize));
-    //        yield return new WaitForSeconds(1);
-    //    }
-    //}
+           //Flow back
+
+           World.queue.Run(Flow(b.GetBlock(x, y, z - 1), bt, strength, maxSize));
+           yield return new WaitForSeconds(1);
+       }
+    }
 
     /// <summary>
     /// Saves the underlying chunk.
