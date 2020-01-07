@@ -10,6 +10,7 @@ using Realtime.Messaging.Internal;
 public class World : MonoBehaviour
 {
 	public GameObject player;
+	public static Vector3 playerPosition;
 	public Material textureAtlas;
 	public Material fluidTexture;
 	public static int columnHeight = 16;
@@ -296,6 +297,7 @@ public class World : MonoBehaviour
     /// </summary>
 	void Update ()
     {
+		playerPosition = player.transform.position;
         // Determine whether to build/load more chunks around the player's location
 		Vector3 movement = lastbuildPos - player.transform.position;
 

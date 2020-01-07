@@ -188,7 +188,7 @@ public class Block
 		if(currentHealth == -1) return false;
 		currentHealth--;
 		health++;
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z)); 
+	//	Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z)); 
 		//printNeighbours();
 		if(currentHealth == (blockHealthMax[(int)blockType]-1))
 		{
@@ -213,10 +213,10 @@ public class Block
 	}
 	
 	private void printNeighbours(){
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
-		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
-		Debug.Log(GetBlockType((int)position.x - 1,(int)position.y,(int)position.z)); 
-		Debug.Log(GetBlockType((int)position.x + 1,(int)position.y,(int)position.z));
+		// Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
+		// Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
+		// Debug.Log(GetBlockType((int)position.x - 1,(int)position.y,(int)position.z)); 
+		// Debug.Log(GetBlockType((int)position.x + 1,(int)position.y,(int)position.z));
 	}
     /// <summary>
     /// Assembles one side of a cube's mesh by selecting the UVs, defining the vertices and calculating the normals.
