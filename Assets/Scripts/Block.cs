@@ -13,6 +13,7 @@ public class Block
 
 	public BlockType blockType;
 	public bool isSolid;
+	public bool helgeDestroyed = false;
 
 	public bool isWater = false;
 	public Chunk owner;
@@ -158,23 +159,23 @@ public class Block
 	public bool BuildBlock(BlockType b)
 	{
         // If water or sand got placed, activate the drop and flow coroutines respectively.
-		//if(b == BlockType.WATER)
-		//{
-		//	owner.mb.StartCoroutine(owner.mb.Flow(this, 
-		//								BlockType.WATER, 
-		//								blockHealthMax[(int)BlockType.WATER],15));
-		//}
+		if(b == BlockType.WATER)
+		{
+			owner.mb.StartCoroutine(owner.mb.Flow(this, 
+										BlockType.WATER, 
+										blockHealthMax[(int)BlockType.WATER],15));
+		}
 		//else if(b == BlockType.SAND)
 		//{
 		//	owner.mb.StartCoroutine(owner.mb.Drop(this, 
 		//								BlockType.SAND, 
 		//								20));
 		//}
-		//else
-		//{
+		else
+		{
 			SetType(b);
 			owner.Redraw();
-		//}
+		}
 		return true;
 	}
 
@@ -195,7 +196,10 @@ public class Block
 		}
 
 		if(currentHealth <= 0)
-		{
+		{	
+			if(blockType == BlockType.HELGE){
+				helgeDestroyed = true;
+			}
 			blockType = BlockType.AIR;
 			isSolid = false;
 			health = BlockType.NOCRACK;
@@ -207,8 +211,7 @@ public class Block
 		owner.Redraw();
 		return false;
 	}
-
-
+	
 	private void printNeighbours(){
 		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
 		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
