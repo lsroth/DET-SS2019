@@ -560,6 +560,17 @@ public class Block
 		} 
 		return false;
 	}
+
+	public bool isNextToWater(){
+		if(HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z + 1) 
+			|| HasWaterNeighbour((int)position.x,(int)position.y,(int)position.z - 1) 
+			|| HasWaterNeighbour((int)position.x - 1,(int)position.y,(int)position.z) 
+			|| HasWaterNeighbour((int)position.x + 1,(int)position.y,(int)position.z)){
+			return true;
+		} 
+		return false;
+	}
+
     /// <summary>
     /// Determines if a side of a cube is to be drawn as a mesh or not, depending on having a solid neighbour or not. If a block is of type AIR, no quads are being created.
     /// </summary>

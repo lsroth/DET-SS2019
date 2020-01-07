@@ -43,6 +43,9 @@ public class Chunk
 	public Block[,,] chunkData;     // 3D Array containing all blocks of the chunk
 	public GameObject chunk;        // GameObject that holds the mesh of the solid parts of the chunk
 	public GameObject fluid;        // GameObject that holds the mesh of the transparent parts, like water, of the chunk
+	public double waterHeight = World.waterSeed;
+	//public double waterHeight;
+
 	public enum ChunkStatus
     {
         DRAW,                       // DRAW: data of the chunk has been created and needs to be rendered next
@@ -154,25 +157,25 @@ public class Chunk
 
                     int surfaceHeight = Utils.GenerateHeightMountains(worldX, worldZ);
 					float signHeight = Utils.GenerateHeightMountains(World.signPos.x,World.signPos.z);
-					int waterHeight = Utils.GenerateHeightWater(worldX,worldZ);
+					//int waterHeight = Utils.GenerateHeightWater(worldX,worldZ);
 
                     if (worldY == 100)
                         chunkData[x, y, z] = new Block(Block.BlockType.BEDROCK, pos,
                                         chunk.gameObject, this);
                    	else if (worldY == surfaceHeight)
 						setSand(x,y,z,pos);
-					if(surfaceHeight < 106 && surfaceHeight > 103 && worldY == surfaceHeight){
+					if(surfaceHeight < Utils.startHeightMountains && surfaceHeight > Utils.startHeightMountains-3 && worldY == surfaceHeight){
 						World.getCactusSeed();
 						if(Utils.fBM3D(worldX, worldY, worldZ, World.getCactusSeed(), 4) < 0.4f)
 							setCactus(x,y,z,pos,0);
-					} else if(surfaceHeight < 106 && surfaceHeight > 103 && worldY == surfaceHeight+1){
+					} else if(surfaceHeight < Utils.startHeightMountains && surfaceHeight > Utils.startHeightMountains-3 && worldY == surfaceHeight+1){
 						if(Utils.fBM3D(worldX, worldY-1, worldZ, World.getCactusSeed(), 4) < 0.4f){
 							setCactus(x,y,z,pos,1);
 						}
 						else {
 							setAir(x,y,z,pos);
 						}
-					} else if(surfaceHeight < 106 && surfaceHeight > 103 && worldY == surfaceHeight+2){
+					} else if(surfaceHeight < Utils.startHeightMountains-3 && surfaceHeight > Utils.startHeightMountains-3 && worldY == surfaceHeight+2){
 						if(Utils.fBM3D(worldX, worldY-2, worldZ, World.getCactusSeed(), 4) < 0.4f && 
 							Utils.fBM3D(worldX, worldY-2, worldZ, World.getCactusSeed(), 5) < 0.39f){
 							setCactus(x,y,z,pos,2);
@@ -183,13 +186,26 @@ public class Chunk
                         setSand(x,y,z,pos); 
 
                     // Place water blocks below height 65
-                    else if (worldY < Utils.startHeightMountains-2.9)
+                    //else if (worldY == surfaceHeight+1 && worldY < 106 && Utils.fBM3D(worldX, worldY, worldZ, 0.1f, 2) < 0.4f){
+					//	setWater(x,y,z,pos);
+					//}
+
+					else if(worldY < waterHeight){
 						setWater(x,y,z,pos);
-					// else if (worldY>=surfaceHeight && worldY<waterHeight && Vector2.Distance(new Vector2(worldX,worldZ), World.waterPos)))
-					// 	setWater(x,y,z,pos);
-						
+					}
+
 					else 
                         setAir(x,y,z,pos);
+
+					if(worldY > surfaceHeight-2 && setGras(x,y,z,worldX,worldY,worldZ)){
+						chunkData[x, y, z] = new Block(Block.BlockType.GRASS, pos,
+							fluid.gameObject, this);
+					}
+					
+					//if(chunkData[x,y,z] != null && chunkData[x,y,z].blockType == Block.BlockType.AIR && chunkData[x,y,z].isNextToWater())
+					//	setWater(x,y,z,pos);
+					//else if (worldY>=surfaceHeight && worldY<waterHeight && Vector2.Distance(new Vector2(worldX,worldZ), World.waterPos))
+					// 	setWater(x,y,z,pos);
 						
 					//Set Sign Middle
 					if(worldY <= surfaceHeight+1 && worldX == World.signPos.x && worldZ == World.signPos.z)
@@ -215,6 +231,17 @@ public class Chunk
 					status = ChunkStatus.DRAW;
 				}
 
+	}
+
+	private bool setGras(int x, int y, int z, int worldX, int worldY, int worldZ){
+		if(worldY<Utils.startHeightMountains && chunkData[x,y,z].GetBlockType(x,y,z)==Block.BlockType.SAND )
+			if(Utils.GenerateHeightMountains(worldX-1, worldZ)<waterHeight-1 && worldY <= waterHeight
+			|| Utils.GenerateHeightMountains(worldX+1, worldZ)<waterHeight-1 && worldY <= waterHeight
+			|| Utils.GenerateHeightMountains(worldX, worldZ-1)<waterHeight-1 && worldY <= waterHeight
+			|| Utils.GenerateHeightMountains(worldX, worldZ+1)<waterHeight-1 && worldY <= waterHeight
+			)
+				return true;
+		return false;
 	}
 
 	private void setSand(int x, int y, int z, Vector3 pos){
