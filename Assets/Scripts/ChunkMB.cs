@@ -7,6 +7,7 @@ using UnityEngine;
 public class ChunkMB: MonoBehaviour
 {
 	Chunk owner;
+    public GameObject mumie;
 	public ChunkMB(){}
 
     /// <summary>
@@ -19,6 +20,26 @@ public class ChunkMB: MonoBehaviour
 		//InvokeRepeating("SaveProgress",10,1000);
 	}
 
+    public void instantiateMumie (){
+        for (int x = 0; x < World.chunkSize; x++)
+            for (int y = 0; y < World.chunkSize; y++)
+                for (int z = 0; z < World.chunkSize; z++){
+                    if(owner!= null)
+                        if(owner.chunkData[x,y,z].helgeDestroyed){
+                            owner.chunkData[x,y,z].helgeDestroyed = false;
+                            int worldX = (int)(x + owner.chunk.transform.position.x);
+                            int worldY = (int)(y + owner.chunk.transform.position.y);
+                            int worldZ = (int)(z + owner.chunk.transform.position.z);
+                            Vector3 pos = new Vector3(worldX,worldY,worldZ);
+                            Debug.Log("mumie at" + pos);
+                            Instantiate(mumie, pos, Quaternion.identity);
+                        }
+                }
+    }
+
+    void Update(){
+        instantiateMumie();
+    }
     /// <summary>
     /// Coroutine is used to reset the block's health after some time.
     /// </summary>
@@ -79,22 +100,22 @@ public class ChunkMB: MonoBehaviour
     /// <returns></returns>
     public IEnumerator Flow(Block b, Block.BlockType bt, int strength, int maxSize)
     {
-    //    Reduce the strenth of the fluid block with each new block created(avoid infinite and exponentially growing number of fluid blocks)
+       // Reduce the strenth of the fluid block with each new block created(avoid infinite and exponentially growing number of fluid blocks)
 
-        if (maxSize <= 0) yield break;
-        if (b == null) yield break;
-        if (strength <= 0) yield break;
-        if (b.blockType != Block.BlockType.AIR) yield break;
-        b.SetType(bt);
-        b.currentHealth = strength;
-        b.owner.Redraw();
-        yield return new WaitForSeconds(1);
+       if (maxSize <= 0) yield break;
+       if (b == null) yield break;
+       if (strength <= 0) yield break;
+       if (b.blockType != Block.BlockType.AIR) yield break;
+       b.SetType(bt);
+       b.currentHealth = strength;
+       b.owner.Redraw();
+       yield return new WaitForSeconds(1);
 
-        int x = (int)b.position.x;
+       int x = (int)b.position.x;
        int y = (int)b.position.y;
        int z = (int)b.position.z;
 
-       //Flow down if air block is beneath
+      // Flow down if air block is beneath
       Block below = b.GetBlock(x, y - 1, z);
        if (below != null && below.blockType == Block.BlockType.AIR)
        {
@@ -105,7 +126,6 @@ public class ChunkMB: MonoBehaviour
        {
            --strength;
            --maxSize;
-
            //Flow left
 
            World.queue.Run(Flow(b.GetBlock(x - 1, y, z), bt, strength, maxSize));

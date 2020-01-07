@@ -13,6 +13,7 @@ public class Block
 
 	public BlockType blockType;
 	public bool isSolid;
+	public bool helgeDestroyed = false;
 
 	public bool isWater = false;
 	public Chunk owner;
@@ -195,7 +196,10 @@ public class Block
 		}
 
 		if(currentHealth <= 0)
-		{
+		{	
+			if(blockType == BlockType.HELGE){
+				helgeDestroyed = true;
+			}
 			blockType = BlockType.AIR;
 			isSolid = false;
 			health = BlockType.NOCRACK;
@@ -207,8 +211,7 @@ public class Block
 		owner.Redraw();
 		return false;
 	}
-
-
+	
 	private void printNeighbours(){
 		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z + 1)); 
 		Debug.Log(GetBlockType((int)position.x,(int)position.y,(int)position.z - 1)); 
