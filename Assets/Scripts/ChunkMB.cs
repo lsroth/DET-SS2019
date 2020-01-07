@@ -19,7 +19,9 @@ public class ChunkMB: MonoBehaviour
 		owner = o;
 		//InvokeRepeating("SaveProgress",10,1000);
 	}
-
+    void Start(){
+        mumie = GameObject.FindGameObjectWithTag("mumie");
+    }
     public void instantiateMumie (){
         for (int x = 0; x < World.chunkSize; x++)
             for (int y = 0; y < World.chunkSize; y++)
@@ -31,7 +33,7 @@ public class ChunkMB: MonoBehaviour
                             int worldY = (int)(y + owner.chunk.transform.position.y);
                             int worldZ = (int)(z + owner.chunk.transform.position.z);
                             Vector3 pos = new Vector3(worldX,worldY,worldZ);
-                            Debug.Log("mumie at" + pos);
+                            //Debug.Log("mumie at" + pos);
                             Instantiate(mumie, pos, Quaternion.identity);
                         }
                 }
