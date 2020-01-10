@@ -20,7 +20,8 @@ public class ChunkMB: MonoBehaviour
 		//InvokeRepeating("SaveProgress",10,1000);
 	}
     void Start(){
-        mumie = GameObject.FindGameObjectWithTag("mumie");
+        mumie = World.mumie;
+       // mumie = GameObject.FindGameObjectWithTag("mumie");
     }
     public void instantiateMumie (){
         for (int x = 0; x < World.chunkSize; x++)
