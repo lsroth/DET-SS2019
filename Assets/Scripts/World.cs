@@ -225,7 +225,9 @@ public class World : MonoBehaviour
 	private Vector3 createPosition(){
 		int[] seeds = new int[] {100,1000,1243,1370,10750,15300};
 		Random.seed = System.Environment.TickCount;
-		levelID = Random.Range(0,(seeds.Length*6*10)-1);
+		levelID = Random.Range(0,(seeds.Length*6*10)-1); 
+		//set to a number between 0 and 359
+		//
 		positionSeed = (int) seeds[levelID/60];
 		Random.InitState(positionSeed);
 		int rndx = (int) Random.Range(-100f, 100f);
