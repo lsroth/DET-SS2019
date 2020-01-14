@@ -17,12 +17,13 @@ public class World : MonoBehaviour
 	public Material fluidTexture;
 	public static int columnHeight = 16;
 	public static int chunkSize = 8;
-	public static int radius = 3; //changed from 3 to 8 to load more at the same time
+	public static int radius = 12; //changed from 3 to 8 to load more at the same time
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
 	public static float cactusSeed;
 	public static int positionSeed;
+	public static float waterSeed;
 	public static Vector3 signPos;
 	public static int levelID;
 
@@ -227,8 +228,10 @@ public class World : MonoBehaviour
 	private Vector3 createPosition(){
 		int[] seeds = new int[] {100,1000,1243,1370,10750,15300};
 		Random.seed = System.Environment.TickCount;
-		levelID = Random.Range(0,(seeds.Length*6)-1);
-		positionSeed = (int) seeds[levelID/6];
+		levelID = Random.Range(0,(seeds.Length*6*10)-1); 
+		//set to a number between 0 and 359
+		//
+		positionSeed = (int) seeds[levelID/60];
 		Random.InitState(positionSeed);
 		int rndx = (int) Random.Range(-100f, 100f);
 		int rndz = (int) Random.Range(-100f, 100f);
@@ -237,8 +240,13 @@ public class World : MonoBehaviour
 	}
 
 	public void setCactusSeed(){
-		float cs = (levelID%6)+1;
+		float cs = (levelID%60)/10f;
 		cactusSeed = cs/10;
+	}
+
+	public void waterFrequencySeed(){
+		float ws = (levelID%10f)+1;
+		waterSeed = (Utils.startHeightMountains-3.5f)+ws*0.25f;
 	}
 
 	public static float getCactusSeed(){
@@ -246,6 +254,7 @@ public class World : MonoBehaviour
 	}
 
 	public void setSignPos(Vector3 ppos){
+		Random.seed = System.Environment.TickCount;
 		signPos = new Vector3(ppos.x+(int)Random.Range(-radius*chunkSize,radius*chunkSize), 0, ppos.z + (int)Random.Range(-radius*chunkSize,radius*chunkSize));
 	}
 
@@ -258,8 +267,10 @@ public class World : MonoBehaviour
 		mumie = SetMumie;
 		Vector3 ppos = createPosition();
 		setCactusSeed();
+		waterFrequencySeed();
 		setSignPos(ppos);
-		Vector4 level = new Vector4(positionSeed,cactusSeed,signPos.x,signPos.z);
+		Vector3 level = new Vector3(levelID/60+1,cactusSeed,(levelID%10f)+1);
+		Debug.Log("Levelparameter:" + level);
 		Debug.Log("LevelID:" + levelID);
 		
 		player.transform.position = new Vector3(ppos.x,

@@ -1,0 +1,191 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.2)  14 JAN 2020 16:15
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**zwischenstand_1401.tex
+(./zwischenstand_1401.tex
+LaTeX2e <2019-10-01> patch level 3
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/base/arti
+cle.cls
+Document Class: article 2019/10/25 v1.4k Standard LaTeX document class
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/base/size
+10.clo
+File: size10.clo 2019/10/25 v1.4k Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/base/inpu
+tenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel/b
+abel.sty
+Package: babel 2019/11/14 3.36 The Babel package
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel/s
+witch.def
+File: switch.def 2019/11/14 3.36 Babel switching mechanism
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel-g
+erman/ngerman.ldf
+Language: ngerman 2018/12/08 v2.11 German support for babel (post-1996 orthogra
+phy)
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel-g
+erman/ngermanb.ldf
+Language: ngermanb 2018/12/08 v2.11 German support for babel (post-1996 orthogr
+aphy)
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel/b
+abel.def
+File: babel.def 2019/11/14 3.36 Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/generic/babel/t
+xtbabel.def)
+\bbl@dirlevel=\count89
+)
+Package babel Info: Making " an active character on input line 121.
+)))
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics/
+graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics/
+keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics/
+graphics.sty
+Package: graphics 2019/11/01 v1.3d Standard LaTeX Graphics (DPC,SPQR)
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics/
+trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics-
+cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/graphics-
+def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+) (./zwischenstand_1401.aux)
+\openout1 = `zwischenstand_1401.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/context/base/mk
+ii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count90
+\scratchdimen=\dimen106
+\scratchbox=\box27
+\nofMPsegments=\count91
+\nofMParguments=\count92
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count93
+\MPscratchDim=\dimen107
+\MPnumerator=\count94
+\makeMPintoPDFobject=\count95
+\everyMPtoPDFconversion=\toks18
+)
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/epstopdf-
+pkg/epstopdf-base.sty
+Package: epstopdf-base 2019-11-30 v2.9 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/latexconf
+ig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 13.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 13.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
+7.
+
+(d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/base/omsc
+mr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 25.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 25.
+
+Overfull \hbox (1.6384pt too wide) in paragraph at lines 25--28
+\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Kak-tus-seed: (Le-ve-lID mo-du-lo 6) +1 - 6
+ ver-schie-de-ne Kak-tush[]aufigkeiten 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--28
+
+ []
+
+[1
+
+{d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-var/fonts/map/pdftex/upd
+map/pdftex.map}] (./zwischenstand_1401.aux) ) 
+Here is how much of TeX's memory you used:
+ 1708 strings out of 492164
+ 24472 string characters out of 6103464
+ 96940 words of memory out of 5000000
+ 6088 multiletter control sequences out of 15000+600000
+ 7280 words of font info for 26 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 30i,7n,27p,270b,201s stack positions out of 5000i,500n,10000p,200000b,80000s
+<d:/Documents/Uni/WS1920/Prosemina
+r/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Documen
+ts/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr10.pfb><d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb><d:/Documents/Uni/WS1920/Proseminar/texlive/20
+19/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><d:/Documents/Uni/WS1920
+/Proseminar/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on zwischenstand_1401.pdf (1 page, 65311 bytes).
+PDF statistics:
+ 28 PDF objects out of 1000 (max. 8388607)
+ 19 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
