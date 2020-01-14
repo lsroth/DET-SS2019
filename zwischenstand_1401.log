@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.2)  14 JAN 2020 16:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.12.2)  14 JAN 2020 17:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -94,18 +94,18 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ) (./zwischenstand_1401.aux)
 \openout1 = `zwischenstand_1401.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
 
 (d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/context/base/mk
 ii/supp-pdf.mkii
@@ -134,58 +134,68 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 13.
+(Font)              <12> on input line 14.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 13.
+(Font)              <8> on input line 14.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 13.
+(Font)              <6> on input line 14.
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
-7.
+8.
 
 (d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/tex/latex/base/omsc
 mr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 17.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 18.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 25.
+(Font)              <7> on input line 28.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 25.
+(Font)              <5> on input line 28.
 
-Overfull \hbox (1.6384pt too wide) in paragraph at lines 25--28
-\OMS/cmsy/m/n/10 !$ \OT1/cmr/m/n/10 Kak-tus-seed: (Le-ve-lID mo-du-lo 6) +1 - 6
- ver-schie-de-ne Kak-tush[]aufigkeiten 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--28
+Underfull \hbox (badness 10000) in paragraph at lines 27--31
 
  []
 
+<level0_1.png, id=1, 638.88687pt x 414.04688pt>
+File: level0_1.png Graphic file (type png)
+<use level0_1.png>
+Package pdftex.def Info: level0_1.png  used on input line 35.
+(pdftex.def)             Requested size: 345.0pt x 223.58829pt.
+<level59_1.png, id=3, 719.18687pt x 417.05812pt>
+File: level59_1.png Graphic file (type png)
+<use level59_1.png>
+Package pdftex.def Info: level59_1.png  used on input line 39.
+(pdftex.def)             Requested size: 345.0pt x 200.07108pt.
+<level0.png, id=4, 720.19063pt x 414.04688pt>
+File: level0.png Graphic file (type png)
+<use level0.png>
+Package pdftex.def Info: level0.png  used on input line 43.
+(pdftex.def)             Requested size: 345.0pt x 198.34221pt.
 [1
 
 {d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-var/fonts/map/pdftex/upd
-map/pdftex.map}] (./zwischenstand_1401.aux) ) 
+map/pdftex.map}] [2 <./level0_1.png> <./level59_1.png>] [3 <./level0.png>]
+(./zwischenstand_1401.aux) ) 
 Here is how much of TeX's memory you used:
- 1708 strings out of 492164
- 24472 string characters out of 6103464
- 96940 words of memory out of 5000000
- 6088 multiletter control sequences out of 15000+600000
+ 1727 strings out of 492164
+ 24743 string characters out of 6103464
+ 98940 words of memory out of 5000000
+ 6103 multiletter control sequences out of 15000+600000
  7280 words of font info for 26 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,7n,27p,270b,201s stack positions out of 5000i,500n,10000p,200000b,80000s
-<d:/Documents/Uni/WS1920/Prosemina
-r/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Documen
-ts/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb><d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr12.pfb><d:/Documents/Uni/WS1920/Proseminar/texlive/20
-19/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><d:/Documents/Uni/WS1920
-/Proseminar/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on zwischenstand_1401.pdf (1 page, 65311 bytes).
+ 30i,7n,27p,234b,270s stack positions out of 5000i,500n,10000p,200000b,80000s
+<d:/Documents/Uni/WS1920/Proseminar/texlive/2019/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><d:/Documents/Uni/WS1920/Pro
+seminar/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><d:/Do
+cuments/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb><d:/Documents/Uni/WS1920/Proseminar/texlive/2019/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb><d:/Documents/Uni/WS1920/Proseminar/texli
+ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on zwischenstand_1401.pdf (3 pages, 4057650 bytes).
 PDF statistics:
- 28 PDF objects out of 1000 (max. 8388607)
- 19 compressed objects within 1 object stream
+ 41 PDF objects out of 1000 (max. 8388607)
+ 24 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
