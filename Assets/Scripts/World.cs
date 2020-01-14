@@ -14,7 +14,7 @@ public class World : MonoBehaviour
 	public Material fluidTexture;
 	public static int columnHeight = 16;
 	public static int chunkSize = 8;
-	public static int radius = 8; //changed from 3 to 8 to load more at the same time
+	public static int radius = 12; //changed from 3 to 8 to load more at the same time
 	public static uint maxCoroutines = 1000;
 	public static ConcurrentDictionary<string, Chunk> chunks;
 	public static List<string> toRemove = new List<string>();
@@ -237,13 +237,12 @@ public class World : MonoBehaviour
 	}
 
 	public void setCactusSeed(){
-		float cs = (levelID%6)+1;
+		float cs = (levelID%60)/10f;
 		cactusSeed = cs/10;
 	}
 
 	public void waterFrequencySeed(){
-		float ws = (levelID/36f);
-		Debug.Log(ws*0.25);
+		float ws = (levelID%10f)+1;
 		waterSeed = (Utils.startHeightMountains-3.5f)+ws*0.25f;
 	}
 
@@ -252,6 +251,7 @@ public class World : MonoBehaviour
 	}
 
 	public void setSignPos(Vector3 ppos){
+		Random.seed = System.Environment.TickCount;
 		signPos = new Vector3(ppos.x+(int)Random.Range(-radius*chunkSize,radius*chunkSize), 0, ppos.z + (int)Random.Range(-radius*chunkSize,radius*chunkSize));
 	}
 
@@ -266,8 +266,8 @@ public class World : MonoBehaviour
 		setCactusSeed();
 		waterFrequencySeed();
 		setSignPos(ppos);
-		Vector3 level = new Vector3(positionSeed,cactusSeed,waterSeed);
-		//Debug.Log("Level:" + level);
+		Vector3 level = new Vector3(levelID/60+1,cactusSeed,(levelID%10f)+1);
+		Debug.Log("Levelparameter:" + level);
 		Debug.Log("LevelID:" + levelID);
 		
 		player.transform.position = new Vector3(ppos.x,
