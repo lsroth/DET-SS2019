@@ -230,7 +230,6 @@ public class World : MonoBehaviour
 		Random.seed = System.Environment.TickCount;
 		levelID = Random.Range(0,(seeds.Length*6*10)-1); 
 		//set to a number between 0 and 359
-		//
 		positionSeed = (int) seeds[levelID/60];
 		Random.InitState(positionSeed);
 		int rndx = (int) Random.Range(-100f, 100f);
@@ -311,7 +310,6 @@ public class World : MonoBehaviour
 	void Update ()
     {
 		playerPosition = player.transform.position;
-        // Determine whether to build/load more chunks around the player's location
 		Vector3 movement = lastbuildPos - player.transform.position;
 
 		if(movement.magnitude > chunkSize )
